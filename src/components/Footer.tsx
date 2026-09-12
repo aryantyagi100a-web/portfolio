@@ -125,10 +125,11 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Monumental Scrambling Wordmark (CABIN <-> CODE) */}
+      {/* Monumental Scrambling Wordmark with Bitmoji on the left */}
       <ScrambleWordmark
         words={["CABIN", "CODE"]}
         defaultWord="CABIN"
+        avatarSrc="/avatar.png"
         className="mt-10 sm:mt-16 pt-4 border-t border-white/5"
       />
     </footer>

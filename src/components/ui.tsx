@@ -147,6 +147,7 @@ export interface ScrambleWordmarkProps {
   pauseDuration?: number;
   className?: string;
   defaultWord?: string;
+  avatarSrc?: string;
 }
 
 export function ScrambleWordmark({
@@ -156,6 +157,7 @@ export function ScrambleWordmark({
   pauseDuration = 1300,
   className = "",
   defaultWord = "CABIN",
+  avatarSrc,
 }: ScrambleWordmarkProps) {
   const [displayText, setDisplayText] = useState(defaultWord);
   const currentWordRef = useRef(defaultWord);
@@ -263,29 +265,45 @@ export function ScrambleWordmark({
       aria-label="Cabin and Code"
     >
       <span className="sr-only">CABIN</span>
-      <div aria-hidden="true" className="w-full px-2 sm:px-4 flex items-center justify-center">
-        <svg
-          viewBox="0 0 1600 230"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto text-white transition-opacity duration-300 will-change-transform drop-shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]"
-        >
-          <text
-            x="50%"
-            y="72%"
-            textAnchor="middle"
-            fill="#ffffff"
-            className="font-sans uppercase"
-            style={{
-              fontSize: "195px",
-              letterSpacing: "0.14em",
-              fontWeight: 900,
-              fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif",
-            }}
+      <div
+        aria-hidden="true"
+        className="w-full px-3 sm:px-8 max-w-[1500px] mx-auto flex items-center justify-center gap-3 sm:gap-6 lg:gap-8"
+      >
+        {avatarSrc && (
+          <div className="shrink-0 flex items-center justify-center">
+            <img
+              src={avatarSrc}
+              alt="Bitmoji"
+              className="h-14 w-14 sm:h-20 sm:w-20 md:h-28 md:w-28 lg:h-32 lg:w-32 object-contain select-none transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 drop-shadow-2xl"
+              loading="eager"
+            />
+          </div>
+        )}
+
+        <div className="flex-1 min-w-0 flex items-center justify-center">
+          <svg
+            viewBox="0 0 1400 230"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-auto text-white transition-opacity duration-300 will-change-transform drop-shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:drop-shadow-[0_0_35px_rgba(255,255,255,0.2)]"
           >
-            {displayText}
-          </text>
-        </svg>
+            <text
+              x="50%"
+              y="72%"
+              textAnchor="middle"
+              fill="#ffffff"
+              className="font-sans uppercase"
+              style={{
+                fontSize: "195px",
+                letterSpacing: "0.12em",
+                fontWeight: 900,
+                fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif",
+              }}
+            >
+              {displayText}
+            </text>
+          </svg>
+        </div>
       </div>
     </div>
   );

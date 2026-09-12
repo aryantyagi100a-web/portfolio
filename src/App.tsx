@@ -9,7 +9,6 @@ import Process from "./components/Process";
 import StatementBand from "./components/StatementBand";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-import FixedBitmoji from "./components/FixedBitmoji";
 import Admin from "./pages/Admin";
 import DemoPage from "./pages/DemoPage";
 
@@ -28,7 +27,6 @@ function Home() {
         <ContactSection />
       </main>
       <Footer />
-      <FixedBitmoji />
     </div>
   );
 }
