@@ -1,21 +1,13 @@
 import { useState, useRef } from "react";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
-import { site } from "../site.config";
+import { motion, type Variants } from "framer-motion";
 import {
   Layers,
   Code2,
   Rocket,
   Zap,
   CheckCircle2,
-  ArrowUpRight,
   Clock,
-  Sparkles,
-  Check,
-  Globe,
-  Terminal,
-  Smartphone,
 } from "lucide-react";
-import { Magnetic, WhatsAppIcon } from "./ui";
 
 interface PoofParticle {
   id: number;
@@ -33,8 +25,6 @@ const stepsData = [
     icon: Layers,
     accent: "#38bdf8", // sky
     deliverables: ["interactive desktop & mobile mockup", "copy, typography & color tuning"],
-    badge: "visual mockup",
-    previewType: "design",
   },
   {
     step: "02",
@@ -45,8 +35,6 @@ const stepsData = [
     icon: Code2,
     accent: "#34d399", // emerald
     deliverables: ["private staging link to test live", "cross-browser & speed optimization"],
-    badge: "production code",
-    previewType: "code",
   },
   {
     step: "03",
@@ -57,8 +45,6 @@ const stepsData = [
     icon: Rocket,
     accent: "#f43f5e", // rose/rocket
     deliverables: ["100% full domain & code ownership", "google search indexing & fast support"],
-    badge: "custom domain & live",
-    previewType: "launch",
   },
 ];
 
@@ -169,8 +155,6 @@ export default function Process() {
   const [poofs, setPoofs] = useState<PoofParticle[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const activeStep = stepsData[activeStepIdx];
-
   function triggerPoof(e: React.MouseEvent) {
     const id = Date.now() + Math.random();
     const x = e.clientX;
@@ -248,7 +232,7 @@ export default function Process() {
             className="max-w-md space-y-2.5"
           >
             <p className="text-sm sm:text-base text-mute leading-relaxed">
-              tap any milestone below to see the deliverables, workflow, and live simulation. zero friction from day one.
+              a rapid, transparent 7-day sprint from initial layout to custom domain launch. zero friction, zero hourly surprises.
             </p>
             <div className="flex items-center gap-2 text-xs font-mono text-live">
               <Clock className="w-4 h-4 text-live shrink-0" />
@@ -398,169 +382,6 @@ export default function Process() {
             );
           })}
         </motion.ol>
-
-        {/* --- Interactive Live Milestone Simulator (Smooth Animated Switch on Poof) --- */}
-        <div className="mt-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeStep.step}
-              initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -18, filter: "blur(8px)" }}
-              transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-2xl sm:rounded-3xl border border-line bg-surface/90 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden"
-            >
-              {/* Dynamic Header of Active Stage */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line/70 pb-5">
-                <div className="flex items-center gap-3.5">
-                  <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-black/50 border border-white/20"
-                    style={{ color: activeStep.accent }}
-                  >
-                    <activeStep.icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs text-live uppercase font-bold tracking-wider">
-                        step {activeStep.step} live simulation
-                      </span>
-                      <span className="h-1.5 w-1.5 rounded-full bg-live animate-ping" />
-                    </div>
-                    <p className="text-lg sm:text-xl font-bold text-paper capitalize">
-                      {activeStep.title} ({activeStep.timeframe})
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs bg-white/10 border border-white/15 px-3 py-1.5 rounded-full text-faint">
-                    {activeStep.badge}
-                  </span>
-                </div>
-              </div>
-
-              {/* Stage Simulation Body */}
-              <div className="mt-6">
-                {activeStep.previewType === "design" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="rounded-xl border border-line bg-black/40 p-4 space-y-2">
-                      <div className="flex items-center gap-2 text-xs font-mono text-sky-400">
-                        <Smartphone className="w-4 h-4" />
-                        <span>Mobile Viewport (390px)</span>
-                      </div>
-                      <div className="h-20 rounded-lg bg-neutral-800/80 border border-neutral-700 p-2 flex flex-col justify-center gap-1.5">
-                        <div className="h-2 w-3/4 bg-white/40 rounded-full" />
-                        <div className="h-2 w-1/2 bg-sky-400/60 rounded-full" />
-                        <div className="h-4 w-full bg-emerald-500/30 rounded-md border border-emerald-500/40" />
-                      </div>
-                    </div>
-
-                    <div className="rounded-xl border border-line bg-black/40 p-4 space-y-2">
-                      <div className="flex items-center gap-2 text-xs font-mono text-paper">
-                        <Layers className="w-4 h-4 text-live" />
-                        <span>Visual Typography & Colors</span>
-                      </div>
-                      <div className="h-20 rounded-lg bg-neutral-800/80 border border-neutral-700 p-2 flex items-center justify-around">
-                        <div className="h-8 w-8 rounded-full bg-[#156338] border border-white/40" title="Studio Ink" />
-                        <div className="h-8 w-8 rounded-full bg-[#fde047] border border-white/40" title="Live Accent" />
-                        <div className="h-8 w-8 rounded-full bg-[#ffffff] border border-white/40" title="Paper White" />
-                      </div>
-                    </div>
-
-                    <div className="rounded-xl border border-line bg-black/40 p-4 space-y-2">
-                      <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
-                        <Check className="w-4 h-4" />
-                        <span>100% Client Sign-off</span>
-                      </div>
-                      <p className="text-xs text-mute leading-relaxed">
-                        You review and tweak the layout until every section looks exactly the way you envision your brand.
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                {activeStep.previewType === "code" && (
-                  <div className="rounded-xl border border-line bg-black/60 p-4 font-mono text-xs text-mute space-y-1.5">
-                    <div className="flex items-center justify-between text-faint pb-2 border-b border-white/10">
-                      <span className="flex items-center gap-2"><Terminal className="w-3.5 h-3.5 text-emerald-400" /> build_pipeline.sh</span>
-                      <span className="text-live">✓ Lighthouse 100/100</span>
-                    </div>
-                    <p className="text-emerald-400">✓ React 19 + Tailwind v4 + Vite bundle created (gzip: 9.8 kB)</p>
-                    <p className="text-sky-300">✓ Touch targets verified (min 48px tap areas applied)</p>
-                    <p className="text-faint">✓ Private Staging Link: https://preview-cabinandcode.staging.dev</p>
-                  </div>
-                )}
-
-                {activeStep.previewType === "launch" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="rounded-xl border border-line bg-black/40 p-4 flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-2xl bg-rose-500/20 border border-rose-400/40 flex items-center justify-center text-rose-400 shrink-0">
-                        <Globe className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-paper">Custom Domain Live</p>
-                        <p className="font-mono text-xs text-emerald-400">https://yourbusiness.com (SSL Active)</p>
-                      </div>
-                    </div>
-
-                    <div className="rounded-xl border border-line bg-black/40 p-4 flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-2xl bg-live/20 border border-live/40 flex items-center justify-center text-live shrink-0">
-                        <Sparkles className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-paper">Google Search Indexing</p>
-                        <p className="text-xs text-mute">Sitemap submitted & indexed for local search keywords</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Bottom Spicy Kickoff Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl border border-line bg-surface/85 backdrop-blur-xl p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
-        >
-          <div className="space-y-1 text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2 font-mono text-xs text-live">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Ready to launch in 7 days?</span>
-            </div>
-            <p className="text-base sm:text-lg font-bold text-paper">
-              Let's kick off your design preview today.
-            </p>
-            <p className="font-mono text-xs text-faint">
-              Share a quick idea of what you need — get your interactive mockup rolling.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto shrink-0">
-            <Magnetic className="w-full sm:w-auto">
-              <a
-                href={site.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-[48px] items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-bold text-neutral-900 shadow-lg hover:bg-neutral-100 active:scale-[0.98] transition-all text-center"
-              >
-                <WhatsAppIcon className="h-4 w-4 text-[#15803d]" />
-                <span>Kick Off on WhatsApp</span>
-              </a>
-            </Magnetic>
-            <a
-              href="#contact"
-              className="flex min-h-[48px] items-center justify-center gap-1.5 rounded-full border border-line px-5 py-3 text-sm font-medium text-mute hover:text-paper hover:border-white/30 active:scale-[0.98] transition-colors font-mono text-center"
-            >
-              <span>or send inquiry</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
