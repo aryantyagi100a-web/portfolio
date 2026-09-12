@@ -102,9 +102,6 @@ export default function Footer() {
             <a href={`mailto:${site.email}`} className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
               Email
             </a>
-            <a href={site.fiverrUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
-              Fiverr
-            </a>
             {site.githubUrl && (
               <a href={site.githubUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
                 GitHub

@@ -199,13 +199,6 @@ export default function ContactSection() {
                 title="Email"
                 sub={site.email}
               />
-              <DirectLink
-                href={site.fiverrUrl}
-                icon={<FiverrGlyph />}
-                title="Fiverr"
-                sub={`Order through @${site.fiverrHandle}`}
-                external
-              />
             </div>
             <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-mute leading-relaxed">
               Messages usually get a reply the same day. For quotes, WhatsApp is fastest — a photo of your shop
@@ -298,8 +291,4 @@ function MailGlyph() {
       <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
-}
-
-function FiverrGlyph() {
-  return <span className="text-lg font-bold leading-none" aria-hidden>fi</span>;
 }

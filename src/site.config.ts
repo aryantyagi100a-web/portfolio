@@ -19,10 +19,6 @@ export const site = {
     return `https://wa.me/${this.whatsapp}`;
   },
 
-  // --- Fiverr (PLACEHOLDER — replace YOUR_FIVERR_USERNAME) ---
-  fiverrUrl: "https://www.fiverr.com/your_fiverr_username",
-  fiverrHandle: "cabinandcode",
-
   // --- Availability status shown next to the green dot ---
   availability: "Available for new projects",
 

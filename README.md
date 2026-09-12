@@ -63,7 +63,7 @@ Notifications go to `NOTIFY_EMAIL` if set, otherwise to `GMAIL_USER` itself.
 
 Everything personal lives in **one file**: [`src/site.config.ts`](src/site.config.ts). Replace the marked PLACEHOLDER values:
 
-- `name`, `email`, `whatsapp` (+ `whatsappDisplay`), `fiverrUrl` (+ `fiverrHandle`), `location`
+- `name`, `email`, `whatsapp` (+ `whatsappDisplay`), `location`
 - hero copy, statement line, availability text
 - the `services` list and `processSteps` — plain-language bullets, edit freely
 - the `conceptProject` block (the salon demo)
