@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { site } from "../site.config";
 import {
-  MessageSquare,
   Layers,
   Code2,
   Rocket,
@@ -27,19 +26,7 @@ interface PoofParticle {
 const stepsData = [
   {
     step: "01",
-    timeframe: "day 01",
-    title: "discovery & direct chat",
-    description:
-      "we talk about your business, target customers, and goals — over whatsapp or a quick call. no jargon, just a straight assessment and a flat quote.",
-    icon: MessageSquare,
-    accent: "#fde047", // yellow/live
-    deliverables: ["fixed flat quote (0 hourly surprises)", "clear scope & timeline locked"],
-    badge: "15-min discovery",
-    previewType: "chat",
-  },
-  {
-    step: "02",
-    timeframe: "days 02–03",
+    timeframe: "days 01–02",
     title: "design preview & layout",
     description:
       "you see exactly how your site will look, feel, and flow before a single line of production code is written. we iterate fast until you love it.",
@@ -50,8 +37,8 @@ const stepsData = [
     previewType: "design",
   },
   {
-    step: "03",
-    timeframe: "days 04–06",
+    step: "02",
+    timeframe: "days 03–05",
     title: "high-performance build",
     description:
       "we engineer the site with lightning-fast code, responsive layouts, whatsapp lead capture, and seo indexing. you get a private staging link to test.",
@@ -62,8 +49,8 @@ const stepsData = [
     previewType: "code",
   },
   {
-    step: "04",
-    timeframe: "day 07 · live",
+    step: "03",
+    timeframe: "days 06–07 · live",
     title: "launch & zero-friction support",
     description:
       "we point your domain, configure google indexing, and flip the switch to go live. after launch, minor updates stay quick, painless, and flat-rate.",
@@ -302,19 +289,19 @@ export default function Process() {
                   style={{ backgroundColor: isSelected ? "#156338" : s.accent }}
                 />
                 <span className="capitalize">{s.step}. {s.title.split("&")[0].trim()}</span>
-                {idx === 3 && <span>🚀</span>}
+                {idx === stepsData.length - 1 && <span>🚀</span>}
               </button>
             );
           })}
         </motion.div>
 
-        {/* 4 Interactive Step Cards (Clicking any card triggers Poof 💨) */}
+        {/* 3 Interactive Step Cards (Clicking any card triggers Poof 💨) */}
         <motion.ol
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+          className="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3"
         >
           {stepsData.map((s, i) => {
             const Icon = s.icon;
@@ -454,27 +441,6 @@ export default function Process() {
 
               {/* Stage Simulation Body */}
               <div className="mt-6">
-                {activeStep.previewType === "chat" && (
-                  <div className="space-y-3 max-w-xl">
-                    <div className="flex items-start gap-3">
-                      <div className="h-8 w-8 rounded-full bg-emerald-700/60 border border-emerald-400/40 flex items-center justify-center text-xs font-bold text-white shrink-0">
-                        You
-                      </div>
-                      <div className="rounded-2xl rounded-tl-none bg-white/10 p-3.5 text-xs sm:text-sm text-paper border border-white/10">
-                        "Hey Aryan, I run a salon & aesthetics clinic and need an appointment booking site that connects to WhatsApp."
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 justify-end">
-                      <div className="rounded-2xl rounded-tr-none bg-emerald-950/80 p-3.5 text-xs sm:text-sm text-emerald-200 border border-emerald-500/30 text-right">
-                        "Awesome! We can build a fast 5-page site with instant WhatsApp 1-tap booking, verified Google reviews, and pricing menu. Flat ₹X,000, delivered in 6 days."
-                      </div>
-                      <div className="h-8 w-8 rounded-full bg-live text-ink flex items-center justify-center text-xs font-bold shrink-0">
-                        C&C
-                      </div>
-                    </div>
-                  </div>
-                )}
-
                 {activeStep.previewType === "design" && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="rounded-xl border border-line bg-black/40 p-4 space-y-2">
@@ -567,10 +533,10 @@ export default function Process() {
               <span>Ready to launch in 7 days?</span>
             </div>
             <p className="text-base sm:text-lg font-bold text-paper">
-              Let's knock out step 01 in 5 minutes over WhatsApp.
+              Let's kick off your design preview today.
             </p>
             <p className="font-mono text-xs text-faint">
-              Share a quick idea of what you need — get an immediate scope & transparent price.
+              Share a quick idea of what you need — get your interactive mockup rolling.
             </p>
           </div>
 
@@ -583,7 +549,7 @@ export default function Process() {
                 className="flex min-h-[48px] items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-bold text-neutral-900 shadow-lg hover:bg-neutral-100 active:scale-[0.98] transition-all text-center"
               >
                 <WhatsAppIcon className="h-4 w-4 text-[#15803d]" />
-                <span>Start Step 01 on WhatsApp</span>
+                <span>Kick Off on WhatsApp</span>
               </a>
             </Magnetic>
             <a

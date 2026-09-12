@@ -78,32 +78,26 @@ export const services = [
 ] as const;
 
 // ============================================================
-// Process — 4 steps
+// Process — 3 steps
 // ============================================================
 export const processSteps = [
   {
     step: "01",
-    title: "free chat",
+    title: "design preview & layout",
     description:
-      "we talk about your business and what you need — on whatsapp or a call. i tell you straight what will help and what it costs.",
+      "you see how your website will look before a single line of production code is written. changes are easy here — this is where we get it right.",
   },
   {
     step: "02",
-    title: "design preview",
+    title: "high-performance build",
     description:
-      "you see how your website will look before i build it. changes are easy here — this is where we get it right.",
+      "we build the real site with lightning-fast code, responsive layout, and share a private staging preview link.",
   },
   {
     step: "03",
-    title: "build & review",
+    title: "launch & zero-friction support",
     description:
-      "i build the real site and share a private preview link. you go through everything and tell me what to fix.",
-  },
-  {
-    step: "04",
-    title: "launch & support",
-    description:
-      "your site goes live on your domain. after launch, small updates stay quick and affordable.",
+      "your site goes live on your custom domain with google indexing. after launch, minor updates stay quick and flat-rate.",
   },
 ] as const;
 
