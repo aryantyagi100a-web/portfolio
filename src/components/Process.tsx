@@ -166,9 +166,8 @@ function PoofEffectInstance({ x, y }: { x: number; y: number }) {
 export default function Process() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [poofs, setPoofs] = useState<PoofParticle[]>([]);
-  const [isHovered, setIsHovered] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const triggerPoofAt = useCallback((x: number, y: number) => {
     const id = Date.now() + Math.random();
@@ -186,7 +185,7 @@ export default function Process() {
         const targetEl = cardRefs.current[nextIdx];
         if (targetEl) {
           const rect = targetEl.getBoundingClientRect();
-          triggerPoofAt(rect.left + rect.width / 2, rect.top + 40);
+          triggerPoofAt(rect.left + rect.width / 2, rect.top + rect.height / 3);
         }
       }
       setActiveStep(nextIdx);
@@ -194,17 +193,22 @@ export default function Process() {
     [triggerPoofAt]
   );
 
-  // Auto-Cycle every ~4.5 seconds (advances 0 -> 1 -> 2 -> 0)
-  // Pauses automatically if user hovers over the cards
+  // Auto-Cycle every 4 seconds continuously across steps 0 -> 1 -> 2 -> 0
   useEffect(() => {
-    if (isHovered) return;
-
     const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % stepsData.length);
-    }, 4500);
+      setActiveStep((prev) => {
+        const next = (prev + 1) % stepsData.length;
+        const targetEl = cardRefs.current[next];
+        if (targetEl) {
+          const rect = targetEl.getBoundingClientRect();
+          triggerPoofAt(rect.left + rect.width / 2, rect.top + rect.height / 3);
+        }
+        return next;
+      });
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [triggerPoofAt]);
 
   function handleTabClick(idx: number, e: React.MouseEvent) {
     selectStep(idx, { x: e.clientX, y: e.clientY });
@@ -219,8 +223,6 @@ export default function Process() {
       id="process"
       ref={containerRef}
       className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-16 sm:py-28 relative overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Dynamic Poof 💨 particle instances */}
       {poofs.map((p) => (
@@ -350,13 +352,13 @@ export default function Process() {
               <motion.li
                 key={s.step}
                 ref={(el) => {
-                  cardRefs.current[i] = el;
+                  cardRefs.current[i] = el as unknown as HTMLDivElement;
                 }}
                 variants={cardVariants}
                 whileHover={{ y: -6, scale: 1.015 }}
                 onClick={(e) => handleCardClick(i, e)}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-                className={`group relative rounded-2xl sm:rounded-3xl border transition-all duration-300 p-5 sm:p-7 flex flex-col justify-between overflow-hidden cursor-pointer select-none ${
+                className={`group relative rounded-2xl sm:rounded-3xl border transition-all duration-300 p-5 sm:p-7 flex flex-col justify-between cursor-pointer select-none ${
                   isSelected
                     ? "border-white/60 bg-surface/95 shadow-2xl ring-2 ring-white/20"
                     : "border-line bg-surface/60 backdrop-blur-xl hover:border-white/35 hover:bg-surface/80"
@@ -364,7 +366,7 @@ export default function Process() {
               >
                 {/* Resting Inactive Thin Neutral Top Border */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-[3.5px] bg-white/10"
+                  className="absolute top-0 left-0 right-0 h-[3.5px] bg-white/10 rounded-t-2xl sm:rounded-t-3xl overflow-hidden"
                   aria-hidden
                 />
 
@@ -379,11 +381,11 @@ export default function Process() {
                         opacity: 0,
                         scale: 1.03,
                         y: -10,
-                        filter: "blur(7px)",
+                        filter: "blur(8px)",
                         transition: { duration: 0.38, ease: [0.25, 1, 0.5, 1] },
                       }}
                       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl"
+                      className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl z-10"
                     >
                       {/* Top Accent Bar: scales/wipes from 0% to 100% width left to right */}
                       <motion.div
@@ -396,18 +398,18 @@ export default function Process() {
                         }}
                         transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
                         style={{ originX: 0, backgroundColor: s.accent }}
-                        className="absolute top-0 left-0 right-0 h-[3.5px] shadow-sm"
+                        className="absolute top-0 left-0 right-0 h-[3.5px] rounded-t-2xl sm:rounded-t-3xl shadow-sm"
                         aria-hidden
                       />
 
                       {/* Bottom-right ambient glow: fades/scales in (opacity 0 -> 1, scale 0.9 -> 1) with slight bounce */}
                       <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 0.38, scale: 1 }}
+                        animate={{ opacity: 0.45, scale: 1 }}
                         exit={{
                           opacity: 0,
-                          scale: 1.12,
-                          filter: "blur(14px)",
+                          scale: 1.15,
+                          filter: "blur(16px)",
                           transition: { duration: 0.36, ease: "easeOut" },
                         }}
                         transition={{
@@ -416,7 +418,7 @@ export default function Process() {
                           damping: 20,
                         }}
                         style={{ backgroundColor: s.accent }}
-                        className="absolute -right-12 -bottom-12 w-40 h-40 rounded-full blur-2xl"
+                        className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full blur-2xl"
                         aria-hidden
                       />
                     </motion.div>
@@ -427,7 +429,7 @@ export default function Process() {
                   {/* Top Bar: Icon Badge + Timeframe Pill + Step Number */}
                   <div className="flex items-center justify-between gap-2 mb-4">
                     <div
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border bg-black/50 shadow-inner transition-transform duration-300 ${
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border bg-black/50 shadow-inner transition-all duration-300 ${
                         isSelected
                           ? "scale-110 border-white/40 shadow-[0_0_12px_rgba(255,255,255,0.15)]"
                           : "border-white/20 group-hover:scale-105"
@@ -439,7 +441,7 @@ export default function Process() {
 
                     <div className="flex items-center gap-2">
                       <span
-                        className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors ${
+                        className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors duration-300 ${
                           isSelected
                             ? "bg-white text-ink font-bold"
                             : "bg-white/10 text-faint group-hover:text-paper"
@@ -448,7 +450,7 @@ export default function Process() {
                         {s.timeframe}
                       </span>
                       <span
-                        className={`font-mono text-2xl sm:text-3xl font-black transition-colors select-none ${
+                        className={`font-mono text-2xl sm:text-3xl font-black transition-colors duration-300 select-none ${
                           isSelected
                             ? "text-white"
                             : "text-white/25 group-hover:text-white/50"
