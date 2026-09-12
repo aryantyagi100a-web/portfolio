@@ -291,3 +291,34 @@ export const aboutSection = {
     },
   ],
 } as const;
+
+// ============================================================
+// Frequently Asked Questions (FAQs)
+// ============================================================
+export const faqs = [
+  {
+    question: "how fast can my website be designed, built, and launched?",
+    answer:
+      "standard turnaround is 5 to 7 days from kickoff. you receive an interactive visual layout mockup within the first 48 hours, and we move straight into high-performance build and custom domain launch.",
+  },
+  {
+    question: "do i own the domain, code, and website after launch?",
+    answer:
+      "100% full ownership. you receive all source code, hosting access, and full administrative rights to your domain and assets. zero proprietary lock-ins, zero hidden retainers.",
+  },
+  {
+    question: "how does flat pricing work? will there be hourly surprises?",
+    answer:
+      "every project is quoted with a transparent flat rate before kickoff. what you see is what you pay — 0 hourly surprises. minor updates and tweaks after launch stay quick and flat-rate.",
+  },
+  {
+    question: "will my website be mobile-friendly and fast on phones?",
+    answer:
+      "yes, mobile-first by default. every section is optimized with minimum 48px touch targets, responsive single-column mobile layouts, and lightweight code built for 100/100 Lighthouse performance on 4G/5G.",
+  },
+  {
+    question: "how do customers reach me from the website?",
+    answer:
+      "we configure instant 1-tap WhatsApp chat buttons, direct click-to-call links, embedded location maps, and inquiry forms that deliver customer inquiries directly to your phone without friction.",
+  },
+] as const;
