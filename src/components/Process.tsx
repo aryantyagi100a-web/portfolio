@@ -259,7 +259,7 @@ export default function Process() {
               </span>
               <span className="block overflow-hidden py-1">
                 <motion.span
-                  className="inline-block bg-white text-[#156338] px-3 sm:px-5 py-0.5 rounded-xl sm:rounded-2xl shadow-lg will-change-transform font-extrabold"
+                  className="inline-block bg-white text-[#156338] px-3 sm:px-5 py-0.5 rounded-lg sm:rounded-xl shadow-lg will-change-transform font-extrabold"
                   initial={{ y: "100%", opacity: 0, filter: "blur(12px)" }}
                   whileInView={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
                   viewport={{ once: true }}

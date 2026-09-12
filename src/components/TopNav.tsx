@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "../site.config";
-import { LiveDot, RollingText, WhatsAppIcon } from "./ui";
+import { RollingText, WhatsAppIcon } from "./ui";
 import { ArrowUpRight, X } from "lucide-react";
 
 const LINKS = [
@@ -121,12 +121,9 @@ export default function TopNav() {
             className="md:hidden border-t border-white/20 bg-neutral-950/98 backdrop-blur-2xl overflow-hidden shadow-2xl"
           >
             <div className="px-5 py-6 flex flex-col gap-6 max-h-[calc(100vh-65px)] overflow-y-auto">
-              {/* Status pill in mobile drawer */}
+              {/* Status in mobile drawer */}
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div className="flex items-center gap-2 font-mono text-xs text-mute">
-                  <LiveDot />
-                  <span>{site.availability}</span>
-                </div>
+                <span className="font-mono text-xs text-mute">{site.name}</span>
                 <span className="font-mono text-xs text-faint">{site.location}</span>
               </div>
 
