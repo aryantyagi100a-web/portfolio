@@ -103,6 +103,8 @@ export const processSteps = [
 
 // ============================================================
 // Featured Projects (Working Concept Demos for prospective clients)
+// Visibly distinct styles: Cafe (Warm Editorial), Salon (Soft Pastel),
+// Trades (Bold High-Contrast), Retail (Minimalist Product Grid)
 // ============================================================
 export interface FeaturedProject {
   id: string;
@@ -113,8 +115,17 @@ export interface FeaturedProject {
   domain: string;
   badge: string;
   accent: string;
+  styleVibe: "coffee" | "salon" | "trades" | "retail";
   headline: string;
   subhead: string;
+  palette: {
+    bg: string;
+    cardBg: string;
+    text: string;
+    subtext: string;
+    border: string;
+    accent: string;
+  };
   menu: readonly {
     item: string;
     detail?: string;
@@ -130,47 +141,26 @@ export interface FeaturedProject {
 
 export const featuredProjects: readonly FeaturedProject[] = [
   {
-    id: "studio-aura",
-    category: "Salon & Aesthetics",
-    tag: "Live Demo · Salon",
-    title: "Studio Aura — Luxury Salon & Aesthetics",
-    intro:
-      "Built for appointment-based local salons: interactive price menu, instant WhatsApp booking, real customer reviews, and open hours.",
-    domain: "studioaura.in",
-    badge: "Open Today · 9:00 AM – 8:00 PM",
-    accent: "#0f766e",
-    headline: "Look good. Get found. Stay booked.",
-    subhead: "Walk-ins welcome & appointments prioritized. Open all 7 days.",
-    menu: [
-      { item: "Haircut & Styling", detail: "Signature wash, custom cut & blow dry", price: "₹299" },
-      { item: "Beard Trim & Shape", detail: "Precision edging, oil treatment & massage", price: "₹199" },
-      { item: "Hair Spa & Deep Repair", detail: "Keratin treatment & relaxing steam massage", price: "₹699" },
-      { item: "Hydrating Facial & Cleanup", detail: "Exfoliation, detox mask & glow serum", price: "₹599" },
-    ],
-    reviews: [
-      { stars: 5, author: "Vikram R.", text: "Best haircut in the area, been coming for two years. Booked on WhatsApp with zero waiting." },
-      { stars: 5, author: "Sneha M.", text: "Flawless bridal glow facial and styling. Super professional team." },
-    ],
-    demonstrates: [
-      "1-Tap WhatsApp booking button that lands right in your chat",
-      "Transparent services & price list readable on any screen",
-      "Google reviews & 5-star customer trust blocks",
-      "Operating hours with live 'Open Today' status",
-      "Ultra-fast mobile loading for local customers on 4G/5G",
-    ],
-  },
-  {
     id: "roast-and-bloom",
-    category: "Artisan Cafe & Bakery",
-    tag: "Live Demo · Cafe",
-    title: "Roast & Bloom — Specialty Coffee & Bakes",
+    category: "Specialty Coffee & Bakes",
+    tag: "Warm · Editorial",
+    title: "Roast & Bloom",
     intro:
       "Crafted for high-footfall cafes and roasteries: digital food & beverage menu, table reservation, and one-tap WhatsApp take-away orders.",
     domain: "roastandbloom.coffee",
     badge: "Roasting Daily · 7:30 AM – 10:00 PM",
-    accent: "#b45309",
+    accent: "#c26d38",
+    styleVibe: "coffee",
     headline: "Slow roasted beans. Warm sourdough from the oven.",
     subhead: "Single-origin pour overs, espresso bar & house-made pastries.",
+    palette: {
+      bg: "#201612",
+      cardBg: "#2d1f19",
+      text: "#fdf8f0",
+      subtext: "#d1bba9",
+      border: "#4a3328",
+      accent: "#e07a38",
+    },
     menu: [
       { item: "Single-Origin Pour Over", detail: "Ethiopian Yirgacheffe notes of bergamot & jasmine", price: "₹240" },
       { item: "Classic Cortado / Flat White", detail: "Double ristretto pulled over silky textured milk", price: "₹190" },
@@ -184,69 +174,122 @@ export const featuredProjects: readonly FeaturedProject[] = [
     demonstrates: [
       "Visual drinks & food menu with tasting notes and allergen tags",
       "Order ahead on WhatsApp to skip the morning counter queue",
-      "Cafe photo strip and location map embed",
-      "Fresh batch announcements & daily specials spotlight",
-      "Instant click-to-call and table reservation flow",
+      "Fresh daily bake drops & bean subscription spotlight",
+      "Location embed with instant Google Maps directions",
     ],
   },
   {
-    id: "pulse-athletics",
-    category: "Fitness Club & CrossFit",
-    tag: "Live Demo · Fitness",
-    title: "Pulse Athletics — Strength & Conditioning Lab",
+    id: "maison-aura",
+    category: "Salon & Medical Aesthetics",
+    tag: "Soft · Elegant",
+    title: "Maison Aura",
     intro:
-      "Tailored for gyms and coaches: membership tier comparisons, daily class timetable, and a free 1-day pass lead generator.",
-    domain: "pulseathletics.fit",
-    badge: "Open 24/7 for Members · Staffed 6AM – 10PM",
-    accent: "#16a34a",
-    headline: "Built for performance. Designed for results.",
-    subhead: "Elite strength training, group conditioning, and personalized nutrition plans.",
+      "Tailored for high-end salons and skin clinics: treatment catalogs, practitioner profiles, and a frictionless WhatsApp booking concierge.",
+    domain: "maisonaura.beauty",
+    badge: "Open Today · 9:00 AM – 8:00 PM",
+    accent: "#be8a7b",
+    styleVibe: "salon",
+    headline: "Quiet luxury skincare, bespoke styling & clinical glow rituals.",
+    subhead: "Private consultations, signature treatments, and personalized beauty care.",
+    palette: {
+      bg: "#1c1819",
+      cardBg: "#272123",
+      text: "#fbf6f3",
+      subtext: "#d8c4be",
+      border: "#423639",
+      accent: "#e5a798",
+    },
     menu: [
-      { item: "Starter Membership (Monthly)", detail: "Full gym floor access, locker & sauna steam", price: "₹2,499/mo" },
-      { item: "Unlimited CrossFit & HIIT", detail: "All group classes, coach support & community events", price: "₹3,999/mo" },
-      { item: "1-on-1 Personal Coaching", detail: "Custom macro plan, bi-weekly body scans & 12 PT sessions", price: "₹7,499/mo" },
-      { item: "1-Day Free Trial Pass", detail: "Full facility pass + introductory trainer consultation", price: "Free (Instant)" },
+      { item: "Hydra-Infusion Glow Facial", detail: "60 min · Deep ultrasonic cleanse, lactic peel & peptide infusion", price: "₹2,499" },
+      { item: "Couture Haircut & Scalp Ritual", detail: "45 min · Botanical wash, precision shape & blowout", price: "₹999" },
+      { item: "Botanical Keratin Therapy", detail: "90 min · Frizz-elimination, gloss glaze & heat seal", price: "₹3,499" },
+      { item: "Pre-Bridal Skin Consultation", detail: "30 min · Skin analysis & 6-week radiance timeline", price: "Complimentary" },
     ],
     reviews: [
-      { stars: 5, author: "Rahul V.", text: "Down 8kg in 3 months! The trainers and community keep you motivated every day." },
-      { stars: 5, author: "Pooja K.", text: "Clean equipment, great energy, and super easy membership sign-up." },
+      { stars: 5, author: "Sneha M.", text: "Flawless bridal glow treatment. The WhatsApp consultation was so seamless." },
+      { stars: 5, author: "Rhea P.", text: "Most relaxing salon experience in town. Truly premium service." },
     ],
     demonstrates: [
-      "High-converting 'Free Trial Pass' lead capture on WhatsApp",
-      "Transparent tier comparison table with pricing",
-      "Trainer spotlights and member transformation reviews",
-      "Live weekly workout timetable with easy booking",
-      "Map directions to facility with parking info",
+      "1-Tap WhatsApp booking concierge with calendar preference",
+      "Transparent service duration & pricing ledger",
+      "Verified client testimonials & before/after transformations",
+      "Mobile-optimized treatment discovery with zero load lag",
     ],
   },
   {
-    id: "haven-design",
-    category: "Architecture & Interiors",
-    tag: "Live Demo · Architecture",
-    title: "Haven Studios — Modern Architecture & Interiors",
+    id: "apex-trades",
+    category: "24/7 Emergency Trades & Repair",
+    tag: "Bold · Conversion",
+    title: "Apex Rapid Trades",
     intro:
-      "Crafted for high-ticket design studios: minimalist portfolio gallery, case study project breakdowns, and direct consultation inquiries.",
-    domain: "havenstudios.design",
-    badge: "Accepting select projects for Q3/Q4",
-    accent: "#0284c7",
-    headline: "Spaces crafted with quiet luxury and timeless intent.",
-    subhead: "Bespoke residential villas, sustainable commercial workspaces, and interior transformations.",
+      "Engineered for local plumbing, electrical, and HVAC services: high-contrast emergency dispatch, upfront flat pricing, and click-to-call buttons.",
+    domain: "apextrades.pro",
+    badge: "⚡ 24/7 Live Emergency Dispatch",
+    accent: "#f97316",
+    styleVibe: "trades",
+    headline: "Rapid 30-min emergency dispatch. Upfront flat rates.",
+    subhead: "Licensed master technicians, zero diagnostic guesswork, 100% guaranteed repair.",
+    palette: {
+      bg: "#0c131f",
+      cardBg: "#152033",
+      text: "#f8fafc",
+      subtext: "#94a3b8",
+      border: "#253754",
+      accent: "#fb923c",
+    },
     menu: [
-      { item: "The Glasshouse Villa · Goa", detail: "4,200 sq.ft private estate with natural passive cooling", price: "Completed 2025" },
-      { item: "Luminary Tech HQ · Bangalore", detail: "Open-plan collaborative workspace for 180 devs", price: "Completed 2024" },
-      { item: "Minimalist Penthouse · Mumbai", detail: "Micro-cement textures, custom walnut & sea views", price: "Completed 2024" },
-      { item: "Initial Design Discovery", detail: "60-Min architectural audit & 3D spatial layout consult", price: "Complimentary" },
+      { item: "Emergency Leak / Pipe Burst", detail: "30-Min arrival · Immediate isolation & heavy-duty repair", price: "From ₹899" },
+      { item: "Full AC Diagnostic & Gas Refill", detail: "Compressor test, coil clean & R32 refrigerant top-up", price: "₹1,299" },
+      { item: "Main Circuit Breaker Tripping", detail: "Fault locator, insulation test & safety switch replacement", price: "₹799" },
+      { item: "Comprehensive Safety Inspection", detail: "Whole-home electrical & plumbing health checklist", price: "Free with Service" },
     ],
     reviews: [
-      { stars: 5, author: "Devashish M.", text: "Haven transformed our villa into an architectural masterpiece. On time and within budget." },
-      { stars: 5, author: "Ritu T.", text: "Flawless aesthetic execution and exceptional attention to natural lighting." },
+      { stars: 5, author: "Amit S.", text: "Arrived in 25 minutes on Sunday night when our pipe burst. Saved our floor!" },
+      { stars: 5, author: "Vikram R.", text: "Clear flat pricing given before they started work. No hidden fees." },
     ],
     demonstrates: [
-      "Editorial case study portfolio with high-res gallery layout",
-      "Project specifications, square footage & materials breakdown",
-      "High-ticket consultation discovery booking on WhatsApp",
-      "Press recognition & architectural award credentials",
-      "Client testimonial quotes with verified project references",
+      "Immediate 1-tap emergency dispatch button on mobile header",
+      "Transparent fixed-rate pricing guide — zero hourly surprises",
+      "30-Minute arrival countdown & live technician status",
+      "Verified local license credentials & 100% satisfaction guarantee",
+    ],
+  },
+  {
+    id: "koto-living",
+    category: "Curated Goods & Homeware",
+    tag: "Minimalist · E-Commerce",
+    title: "Koto Living",
+    intro:
+      "Built for modern boutique brands: product-grid lookbook, real-time inventory indicators, and direct WhatsApp shopping flows.",
+    domain: "kotoliving.shop",
+    badge: "Worldwide Shipping · Limited Batch",
+    accent: "#65a30d",
+    styleVibe: "retail",
+    headline: "Handcrafted ceramics, linen & timeless home essentials.",
+    subhead: "Small-batch artisan imports with worldwide tracked dispatch.",
+    palette: {
+      bg: "#181b16",
+      cardBg: "#22271f",
+      text: "#f5f7f2",
+      subtext: "#a4b39b",
+      border: "#343d2f",
+      accent: "#84cc16",
+    },
+    menu: [
+      { item: "Hasami Porcelain Mug (350ml)", detail: "Matte finish natural clay, stackable modular design", price: "₹1,450" },
+      { item: "Wabi-Sabi Stoneware Vase", detail: "Hand-thrown volcanic glaze by Kyoto master potters", price: "₹2,800" },
+      { item: "Washed French Linen Throw", detail: "100% organic European flax in olive moss tone", price: "₹3,600" },
+      { item: "Hinoki Wood Bath Tray", detail: "Aromatic Japanese cedar with natural water-resistant grain", price: "₹2,200" },
+    ],
+    reviews: [
+      { stars: 5, author: "Tara B.", text: "The Hasami mugs are gorgeous and arrived in pristine eco-friendly packaging." },
+      { stars: 5, author: "Nikhil M.", text: "Ordered through WhatsApp in under a minute. Top quality ceramics!" },
+    ],
+    demonstrates: [
+      "High-converting product lookbook grid with live stock status",
+      "Frictionless 1-click 'Buy via WhatsApp' with prefilled product SKU",
+      "Material provenance storytelling and care instructions",
+      "Fast checkout flow without requiring customer account registration",
     ],
   },
 ] as const;

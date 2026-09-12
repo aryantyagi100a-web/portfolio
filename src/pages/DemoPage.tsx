@@ -11,7 +11,7 @@ export default function DemoPage() {
   const project = featuredProjects.find((p) => p.id === id) || featuredProjects[0];
 
   const waBookingMessage = encodeURIComponent(
-    `Hi ${project.title.split("—")[0].trim()}, I found your website demo via Cabin and Code and would like to inquire!`
+    `Hi ${project.title}, I found your website demo via Cabin and Code and would like to inquire!`
   );
   const waUrl = `https://wa.me/${site.whatsapp}?text=${waBookingMessage}`;
 
@@ -29,7 +29,7 @@ export default function DemoPage() {
             <span className="xs:hidden">Back</span>
           </Link>
           <div className="truncate hidden sm:block">
-            <span className="font-semibold text-xs sm:text-sm text-white truncate">{project.title.split("—")[0]}</span>
+            <span className="font-semibold text-xs sm:text-sm text-white truncate">{project.title}</span>
             <span className="ml-2 font-mono text-xs text-neutral-400 hidden lg:inline">({project.domain})</span>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function DemoPage() {
           </button>
         </div>
 
-        {/* CTA to get a similar site */}
+        {/* CTA to test WhatsApp flow */}
         <div className="flex items-center gap-2 shrink-0">
           <a
             href={waUrl}
@@ -108,103 +108,130 @@ export default function DemoPage() {
             <div className="w-6 sm:w-10" />
           </div>
 
-          {/* Interactive Live Website Content */}
-          <div className="overflow-y-auto max-h-[80vh] p-4 sm:p-10 space-y-8 sm:space-y-12">
-            {/* Nav */}
-            <nav className="flex items-center justify-between border-b border-neutral-200 pb-4 sm:pb-5 gap-2">
+          {/* Interactive Live Website Content (Custom Styled Per Industry) */}
+          <div
+            className={`overflow-y-auto max-h-[80vh] p-4 sm:p-10 space-y-8 sm:space-y-12 ${
+              project.styleVibe === "coffee"
+                ? "bg-[#faf6f0] text-[#2b1810]"
+                : project.styleVibe === "salon"
+                ? "bg-[#fdf9f7] text-[#2a2423]"
+                : project.styleVibe === "trades"
+                ? "bg-[#f8fafc] text-[#0f172a]"
+                : "bg-[#f6f7f4] text-[#1c2218]"
+            }`}
+          >
+            {/* Demo Header / Nav */}
+            <nav className="flex items-center justify-between border-b border-black/10 pb-4 sm:pb-5 gap-2">
               <div className="min-w-0">
-                <span className="text-base sm:text-xl font-bold tracking-tight text-neutral-900 capitalize truncate block">
-                  {project.title.split("—")[0]}
+                <span className={`text-base sm:text-xl font-bold tracking-tight capitalize truncate block ${project.styleVibe === "coffee" ? "font-serif" : ""}`}>
+                  {project.title}
                 </span>
-                <p className="text-[11px] sm:text-xs text-neutral-500 font-mono truncate">{project.category}</p>
+                <p className="text-[11px] sm:text-xs font-mono opacity-70 truncate">{project.category}</p>
               </div>
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[36px] items-center gap-1.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs font-medium transition-all shadow-sm hover:scale-105 shrink-0"
-              >
-                <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Book on WhatsApp</span>
-              </a>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href={waUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ backgroundColor: project.accent }}
+                  className="inline-flex min-h-[36px] items-center gap-1.5 rounded-full text-white px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs font-semibold transition-all shadow-sm hover:opacity-90 active:scale-95 shrink-0"
+                >
+                  <WhatsAppIcon className="w-3.5 h-3.5" />
+                  <span>{project.styleVibe === "trades" ? "24/7 Emergency Dispatch" : project.styleVibe === "retail" ? "Buy on WhatsApp" : "Book via WhatsApp"}</span>
+                </a>
+              </div>
             </nav>
 
             {/* Hero Section */}
             <div className="text-center max-w-2xl mx-auto py-4 sm:py-6 space-y-3 sm:space-y-4">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-100 border border-neutral-300/80 px-3 py-1 text-[11px] sm:text-xs font-mono text-neutral-700">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span
+                style={{ borderColor: project.accent, color: project.accent }}
+                className="inline-flex items-center gap-1.5 rounded-full border bg-white/70 px-3.5 py-1 text-[11px] sm:text-xs font-mono font-semibold shadow-sm"
+              >
+                <span className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: project.accent }} />
                 {project.badge}
               </span>
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 leading-tight">
+
+              <h1 className={`text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight ${project.styleVibe === "coffee" ? "font-serif italic font-normal" : ""}`}>
                 {project.headline}
               </h1>
-              <p className="text-neutral-600 text-xs sm:text-base leading-relaxed max-w-lg mx-auto">
+
+              <p className="opacity-80 text-xs sm:text-base leading-relaxed max-w-lg mx-auto">
                 {project.subhead}
               </p>
+
               <div className="pt-2 flex flex-col sm:flex-row justify-center gap-2.5 sm:gap-3">
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-neutral-900 text-white px-6 py-2.5 text-xs sm:text-sm font-semibold hover:bg-neutral-800 transition-all shadow-md"
+                  style={{ backgroundColor: project.accent }}
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-full text-white px-6 py-2.5 text-xs sm:text-sm font-semibold hover:opacity-90 transition-all shadow-md"
                 >
-                  Contact & Reserve
+                  {project.styleVibe === "trades" ? "Call / WhatsApp Dispatch" : project.styleVibe === "retail" ? "Order on WhatsApp" : "Reserve Appointment"}
                 </a>
                 <a
-                  href="#menu"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-neutral-300 text-neutral-800 px-6 py-2.5 text-xs sm:text-sm font-medium hover:bg-neutral-100 transition-colors"
+                  href="#offerings"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-black/20 bg-white/60 px-6 py-2.5 text-xs sm:text-sm font-medium hover:bg-white transition-colors"
                 >
-                  View Offerings
+                  View Offerings & Pricing
                 </a>
               </div>
             </div>
 
-            {/* Visual Photo Strip */}
+            {/* Thematic Visual Strip */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
               {[
-                "from-amber-100 to-amber-200",
-                "from-neutral-200 to-neutral-300",
-                "from-emerald-100 to-emerald-200",
-                "from-sky-100 to-sky-200",
-              ].map((gradient, i) => (
+                "Feature Spotlight 01",
+                "Craftsmanship 02",
+                "Customer Favorite 03",
+                "Signature Service 04",
+              ].map((label, i) => (
                 <div
                   key={i}
-                  className={`h-24 sm:h-36 rounded-xl bg-gradient-to-br ${gradient} p-3 sm:p-4 flex flex-col justify-end border border-neutral-200/80 shadow-sm`}
+                  style={{ borderColor: `${project.accent}33` }}
+                  className="h-24 sm:h-32 rounded-xl bg-white/70 border p-3 sm:p-4 flex flex-col justify-between shadow-sm"
                 >
-                  <span className="font-mono text-[9px] sm:text-[10px] text-neutral-600 font-semibold uppercase tracking-wider">
-                    Gallery 0{i + 1}
-                  </span>
+                  <span className="text-[10px] font-mono opacity-60 uppercase">0{i + 1} //</span>
+                  <p className="font-semibold text-xs sm:text-sm">{label}</p>
                 </div>
               ))}
             </div>
 
-            {/* Offerings / Price Ledger */}
-            <div id="menu" className="space-y-3 sm:space-y-4 pt-2 sm:pt-4">
-              <div className="flex items-center justify-between border-b border-neutral-200 pb-2.5 sm:pb-3">
-                <h3 className="font-bold text-base sm:text-lg text-neutral-900">Featured Offerings & Pricing</h3>
-                <span className="font-mono text-[11px] sm:text-xs text-neutral-500">All transparent rates</span>
+            {/* Offerings & Rate Ledger */}
+            <div id="offerings" className="space-y-3 sm:space-y-4 pt-2 sm:pt-4">
+              <div className="flex items-center justify-between border-b border-black/10 pb-2.5 sm:pb-3">
+                <h3 className="font-bold text-base sm:text-lg">
+                  {project.styleVibe === "retail" ? "Curated Collection & In-Stock" : "Featured Services & Rates"}
+                </h3>
+                <span className="font-mono text-[11px] sm:text-xs opacity-60">100% Upfront Transparent</span>
               </div>
-              <ul className="divide-y divide-neutral-200">
+
+              <ul className="divide-y divide-black/10">
                 {project.menu.map((item, idx) => (
                   <li
                     key={idx}
-                    className="py-3 sm:py-3.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 hover:bg-neutral-50 px-2 rounded-lg transition-colors"
+                    className="py-3.5 sm:py-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 hover:bg-black/5 px-2.5 rounded-xl transition-colors"
                   >
                     <div>
-                      <span className="font-semibold text-neutral-900 text-sm sm:text-base">{item.item}</span>
+                      <span className="font-semibold text-sm sm:text-base">{item.item}</span>
                       {item.detail && (
-                        <p className="text-xs text-neutral-500 mt-0.5">{item.detail}</p>
+                        <p className="text-xs opacity-70 mt-0.5">{item.detail}</p>
                       )}
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs sm:text-sm font-bold text-neutral-900">{item.price}</span>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="font-mono text-xs sm:text-sm font-bold" style={{ color: project.accent }}>
+                        {item.price}
+                      </span>
                       <a
                         href={waUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[11px] font-mono text-emerald-700 hover:underline inline-flex items-center gap-1"
+                        className="text-[11px] font-mono hover:underline inline-flex items-center gap-1 font-semibold"
+                        style={{ color: project.accent }}
                       >
-                        Order/Book →
+                        {project.styleVibe === "retail" ? "Buy Now →" : "Book →"}
                       </a>
                     </div>
                   </li>
@@ -213,33 +240,45 @@ export default function DemoPage() {
             </div>
 
             {/* Testimonials & Hours */}
-            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 pt-4 sm:pt-6 border-t border-neutral-200">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 pt-4 sm:pt-6 border-t border-black/10">
               <div className="space-y-3 sm:space-y-4">
-                <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider text-neutral-500 font-mono">// Verified Client Reviews</h4>
+                <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider opacity-60 font-mono">
+                  // Verified Client Reviews
+                </h4>
                 {project.reviews.map((rev, i) => (
-                  <div key={i} className="rounded-xl bg-neutral-50 p-3.5 sm:p-4 border border-neutral-200">
+                  <div key={i} className="rounded-xl bg-white/80 p-3.5 sm:p-4 border border-black/10 shadow-sm">
                     <div className="flex items-center gap-1 text-amber-500 mb-1 text-xs">
                       {"★".repeat(rev.stars)}
                     </div>
-                    <p className="text-xs text-neutral-700 leading-relaxed italic">“{rev.text}”</p>
-                    <p className="font-mono text-[10px] sm:text-[11px] text-neutral-500 mt-1.5 font-semibold">— {rev.author}</p>
+                    <p className="text-xs sm:text-sm leading-relaxed italic">“{rev.text}”</p>
+                    <p className="font-mono text-[10px] sm:text-[11px] opacity-60 mt-1.5 font-semibold">
+                      — {rev.author}
+                    </p>
                   </div>
                 ))}
               </div>
 
-              <div className="rounded-2xl bg-neutral-900 text-white p-5 sm:p-6 flex flex-col justify-between space-y-4">
+              <div
+                style={{ backgroundColor: project.palette.cardBg, color: project.palette.text, borderColor: project.palette.border }}
+                className="rounded-2xl border p-5 sm:p-6 flex flex-col justify-between space-y-4 shadow-xl"
+              >
                 <div>
-                  <span className="font-mono text-[11px] sm:text-xs text-emerald-400 uppercase tracking-wider">Opening Times & Location</span>
-                  <p className="text-base sm:text-lg font-bold mt-1 text-white">{project.badge}</p>
-                  <p className="text-xs text-neutral-400 mt-1.5">Central Business District · Easy Parking & WhatsApp Assistant</p>
+                  <span className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider" style={{ color: project.accent }}>
+                    Operating Status & Direct Inquiries
+                  </span>
+                  <p className="text-base sm:text-lg font-bold mt-1">{project.badge}</p>
+                  <p className="text-xs opacity-75 mt-1.5">Direct 1-Tap Response · No Intermediaries</p>
                 </div>
+
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-center inline-flex min-h-[44px] items-center justify-center rounded-xl bg-white text-neutral-900 py-2.5 text-xs font-bold hover:bg-neutral-100 transition-colors shadow-sm"
+                  style={{ backgroundColor: project.accent }}
+                  className="w-full text-center inline-flex min-h-[44px] items-center justify-center rounded-xl text-white py-2.5 text-xs font-bold hover:opacity-90 transition-opacity shadow-sm"
                 >
-                  Message on WhatsApp
+                  <WhatsAppIcon className="w-3.5 h-3.5 mr-2" />
+                  <span>Send Direct WhatsApp Message</span>
                 </a>
               </div>
             </div>
@@ -249,3 +288,4 @@ export default function DemoPage() {
     </div>
   );
 }
+
