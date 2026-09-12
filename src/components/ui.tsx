@@ -263,23 +263,24 @@ export function ScrambleWordmark({
       aria-label="Cabin and Code"
     >
       <span className="sr-only">CABIN</span>
-      <div aria-hidden="true" className="px-2 sm:px-6 max-w-[1440px] mx-auto flex items-center justify-center">
+      <div aria-hidden="true" className="w-full px-2 sm:px-4 flex items-center justify-center">
         <svg
-          viewBox="0 0 1360 210"
+          viewBox="0 0 1600 230"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto text-white/[0.12] group-hover:text-white/[0.9] transition-colors duration-300 will-change-transform"
+          className="w-full h-auto text-white transition-opacity duration-300 will-change-transform drop-shadow-[0_0_20px_rgba(255,255,255,0.05)] group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]"
         >
           <text
             x="50%"
-            y="74%"
+            y="72%"
             textAnchor="middle"
-            fill="currentColor"
-            className="font-mono font-black uppercase tracking-tight"
+            fill="#ffffff"
+            className="font-sans uppercase"
             style={{
-              fontSize: "210px",
-              letterSpacing: "-0.04em",
+              fontSize: "195px",
+              letterSpacing: "0.14em",
               fontWeight: 900,
+              fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif",
             }}
           >
             {displayText}
