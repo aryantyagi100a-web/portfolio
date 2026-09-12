@@ -9,14 +9,14 @@ export default function AboutTeam() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-xs sm:text-[13px] text-faint">[ about & studio ]</p>
-            <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
+            <p className="font-mono text-xs sm:text-[13px] text-faint">[ About & Studio ]</p>
+            <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-paper">
               {aboutSection.title}
             </h2>
           </div>
           <div className="inline-flex items-center gap-2 self-start sm:self-auto rounded-full border border-line bg-surface/40 backdrop-blur-md px-3.5 py-1.5 text-xs font-mono text-mute">
             <Users className="w-3.5 h-3.5 text-live" />
-            <span>small studio · big impact</span>
+            <span>Small Studio · Big Impact</span>
           </div>
         </div>
 
@@ -49,7 +49,7 @@ export default function AboutTeam() {
         {/* Team Cards Grid */}
         <div className="mt-10 sm:mt-14">
           <h3 className="font-mono text-xs uppercase tracking-widest text-faint mb-4 sm:mb-6">
-            // the team behind the code
+            // The Team Behind The Code
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -76,7 +76,7 @@ export default function AboutTeam() {
                       <h4 className="text-lg sm:text-xl font-bold tracking-tight text-paper group-hover:text-white transition-colors">
                         {member.name}
                       </h4>
-                      <p className="font-mono text-xs text-live mt-0.5 lowercase">
+                      <p className="font-mono text-xs text-live mt-0.5">
                         {member.role}
                       </p>
                     </div>
@@ -90,13 +90,13 @@ export default function AboutTeam() {
                 {/* Social link tag */}
                 <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-line flex items-center justify-between">
                   <span className="font-mono text-[11px] sm:text-xs text-faint">
-                    cabin and code studio
+                    Cabin & Code Studio
                   </span>
                   <a
                     href="#contact"
                     className="inline-flex min-h-[36px] items-center gap-1 font-mono text-xs text-mute hover:text-paper active:text-white transition-colors py-1 px-2 -mr-2"
                   >
-                    <span>connect</span>
+                    <span>Connect</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>

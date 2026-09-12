@@ -71,12 +71,12 @@ export default function ContactSection() {
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <p className="font-mono text-xs sm:text-[13px] text-faint">[ contact ]</p>
-        <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
-          tell me about your business
+        <p className="font-mono text-xs sm:text-[13px] text-faint">[ Contact ]</p>
+        <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-paper">
+          Tell Me About Your Business
         </h2>
         <p className="mt-3 sm:mt-4 max-w-xl text-sm sm:text-base text-mute leading-relaxed font-normal">
-          a rough idea is enough — i'll reply with what i'd suggest and what it would cost. {site.heroNote}.
+          A rough idea is enough — I'll reply with what I'd suggest and what it would cost. {site.heroNote}.
         </p>
 
         <div className="mt-8 sm:mt-12 grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
@@ -84,17 +84,17 @@ export default function ContactSection() {
           <div>
             {status === "success" ? (
               <div className="rounded-2xl sm:rounded-3xl border border-line bg-surface p-6 sm:p-10">
-                <p className="font-mono text-[13px] text-live">[ message sent ]</p>
-                <p className="mt-3 text-xl sm:text-2xl font-semibold tracking-tight lowercase">
-                  got it — thanks!
+                <p className="font-mono text-[13px] text-live">[ Message Sent ]</p>
+                <p className="mt-3 text-xl sm:text-2xl font-semibold tracking-tight">
+                  Got it — Thanks!
                 </p>
                 <p className="mt-2.5 text-sm sm:text-base text-mute leading-relaxed">
-                  i'll get back to you {site.heroNote}. in a hurry? whatsapp is faster.
+                  I'll get back to you {site.heroNote}. In a hurry? WhatsApp is faster.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <Magnetic className="w-full sm:w-auto">
                     <PillButton type="button" onClick={() => setStatus("idle")} className="w-full sm:w-auto">
-                      send another message
+                      Send Another Message
                     </PillButton>
                   </Magnetic>
                   <BracketLabel
@@ -104,7 +104,7 @@ export default function ContactSection() {
                     rel="noopener noreferrer"
                     className="text-mute hover:text-paper transition-colors self-center py-2"
                   >
-                    whatsapp me instead
+                    WhatsApp Me Instead
                   </BracketLabel>
                 </div>
               </div>
@@ -113,24 +113,24 @@ export default function ContactSection() {
                 {/* honeypot — hidden from humans, catnip for bots */}
                 <div className="hp-field" aria-hidden="true">
                   <label>
-                    company
+                    Company
                     <input type="text" name="company" tabIndex={-1} autoComplete="off" />
                   </label>
                 </div>
 
                 <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
-                  <Field label="your name" htmlFor="cf-name" error={errors.name}>
+                  <Field label="Your Name" htmlFor="cf-name" error={errors.name}>
                     <input
                       id="cf-name"
                       name="name"
                       type="text"
                       required
                       autoComplete="name"
-                      placeholder="priya sharma"
+                      placeholder="Priya Sharma"
                       className={inputCls(!!errors.name)}
                     />
                   </Field>
-                  <Field label="phone (optional)" htmlFor="cf-phone" error={errors.phone}>
+                  <Field label="Phone (optional)" htmlFor="cf-phone" error={errors.phone}>
                     <input
                       id="cf-phone"
                       name="phone"
@@ -142,7 +142,7 @@ export default function ContactSection() {
                   </Field>
                 </div>
 
-                <Field label="email" htmlFor="cf-email" error={errors.email}>
+                <Field label="Email" htmlFor="cf-email" error={errors.email}>
                   <input
                     id="cf-email"
                     name="email"
@@ -154,13 +154,13 @@ export default function ContactSection() {
                 </Field>
                 {errors.contact && <ErrorText>{errors.contact}</ErrorText>}
 
-                <Field label="your project" htmlFor="cf-message" error={errors.message}>
+                <Field label="Your Project" htmlFor="cf-message" error={errors.message}>
                   <textarea
                     id="cf-message"
                     name="message"
                     required
                     rows={4}
-                    placeholder="what's your business, and what do you need the website to do?"
+                    placeholder="What's your business, and what do you need the website to do?"
                     className={`${inputCls(!!errors.message)} resize-y min-h-[110px] sm:min-h-[130px]`}
                   />
                 </Field>
@@ -174,10 +174,10 @@ export default function ContactSection() {
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
                   <Magnetic className="w-full sm:w-auto">
                     <PillButton type="submit" disabled={status === "sending"} className="w-full sm:w-auto min-h-[48px]">
-                      {status === "sending" ? "sending…" : "send message"}
+                      {status === "sending" ? "Sending…" : "Send Message"}
                     </PillButton>
                   </Magnetic>
-                  <span className="font-mono text-xs text-faint text-center sm:text-left">replies {site.heroNote}</span>
+                  <span className="font-mono text-xs text-faint text-center sm:text-left">Replies {site.heroNote}</span>
                 </div>
               </form>
             )}
@@ -185,30 +185,30 @@ export default function ContactSection() {
 
           {/* ---------------- direct links ---------------- */}
           <aside className="lg:pl-8 lg:border-l lg:border-line">
-            <p className="font-mono text-xs sm:text-[13px] text-faint">[ prefer to talk directly? ]</p>
+            <p className="font-mono text-xs sm:text-[13px] text-faint">[ Prefer to Talk Directly? ]</p>
             <div className="mt-4 sm:mt-6 space-y-3">
               <DirectLink
                 href={site.whatsappLink}
                 icon={<WhatsAppIcon className="h-5 w-5 text-emerald-400" />}
-                title="whatsapp"
+                title="WhatsApp"
                 sub={site.whatsappDisplay}
               />
               <DirectLink
                 href={`mailto:${site.email}`}
                 icon={<MailGlyph />}
-                title="email"
+                title="Email"
                 sub={site.email}
               />
               <DirectLink
                 href={site.fiverrUrl}
                 icon={<FiverrGlyph />}
-                title="fiverr"
-                sub={`order through @${site.fiverrHandle}`}
+                title="Fiverr"
+                sub={`Order through @${site.fiverrHandle}`}
                 external
               />
             </div>
             <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-mute leading-relaxed">
-              messages usually get a reply the same day. for quotes, whatsapp is fastest — a photo of your shop
+              Messages usually get a reply the same day. For quotes, WhatsApp is fastest — a photo of your shop
               or a line about your work is a great start.
             </p>
           </aside>
@@ -281,7 +281,7 @@ function DirectLink({
             {icon}
           </span>
           <span className="min-w-0">
-            <span className="block text-sm font-semibold lowercase text-paper">{title}</span>
+            <span className="block text-sm font-semibold text-paper">{title}</span>
             <span className="block truncate font-mono text-xs text-mute">{sub}</span>
           </span>
         </div>

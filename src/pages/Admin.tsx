@@ -99,13 +99,13 @@ export default function Admin() {
     return (
       <div className="min-h-screen bg-ink text-paper flex items-center justify-center px-4 py-8">
         <form onSubmit={handleLogin} className="w-full max-w-sm rounded-2xl border border-line bg-surface/80 backdrop-blur-xl p-6 sm:p-8 shadow-2xl">
-          <p className="font-mono text-xs sm:text-[13px] text-faint">[ admin ]</p>
-          <h1 className="mt-2 text-xl sm:text-2xl font-semibold tracking-tight lowercase">enter the password</h1>
+          <p className="font-mono text-xs sm:text-[13px] text-faint">[ Admin ]</p>
+          <h1 className="mt-2 text-xl sm:text-2xl font-semibold tracking-tight">Enter the Password</h1>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="admin password"
+            placeholder="Admin password"
             autoFocus
             className="mt-5 w-full rounded-xl border border-line bg-surface px-4 py-3.5 text-base text-paper outline-none transition focus:border-white/35"
           />
@@ -116,14 +116,14 @@ export default function Admin() {
           )}
           <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <PillButton type="submit" disabled={loading} className="w-full sm:w-auto min-h-[44px]">
-              {loading ? "checking…" : "unlock"}
+              {loading ? "Checking…" : "Unlock"}
             </PillButton>
             <Link to="/" className="inline-flex min-h-[44px] items-center justify-center font-mono text-xs sm:text-[13px] text-mute hover:text-paper transition-colors">
-              ← back to site
+              ← Back to Site
             </Link>
           </div>
           <p className="mt-6 font-mono text-[11px] leading-relaxed text-faint">
-            set with ADMIN_PASSWORD in the .env file — see .env.example
+            Set with ADMIN_PASSWORD in the .env file — see .env.example
           </p>
         </form>
       </div>
@@ -135,9 +135,9 @@ export default function Admin() {
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line pb-6">
           <div>
-            <p className="font-mono text-xs sm:text-[13px] text-faint">[ admin ]</p>
-            <h1 className="mt-1 text-2xl sm:text-3xl font-bold tracking-tight lowercase">
-              {messages.length} {messages.length === 1 ? "lead / message" : "leads & messages"}
+            <p className="font-mono text-xs sm:text-[13px] text-faint">[ Admin ]</p>
+            <h1 className="mt-1 text-2xl sm:text-3xl font-bold tracking-tight">
+              {messages.length} {messages.length === 1 ? "Lead / Message" : "Leads & Messages"}
             </h1>
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
@@ -146,14 +146,14 @@ export default function Admin() {
               className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl border border-line bg-surface/50 px-3.5 py-2 font-mono text-xs text-mute hover:text-paper hover:bg-raised transition-colors cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>log out</span>
+              <span>Log Out</span>
             </button>
             <Link
               to="/"
               className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl bg-paper px-4 py-2 font-mono text-xs font-semibold text-ink hover:opacity-90 transition-opacity"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>view site</span>
+              <span>View Site</span>
             </Link>
           </div>
         </div>

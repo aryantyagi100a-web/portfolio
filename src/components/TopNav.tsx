@@ -5,11 +5,11 @@ import { RollingText, WhatsAppIcon } from "./ui";
 import { ArrowUpRight, X } from "lucide-react";
 
 const LINKS = [
-  { href: "#work", label: "work", num: "01" },
-  { href: "#services", label: "services", num: "02" },
-  { href: "#about", label: "about", num: "03" },
-  { href: "#process", label: "process", num: "04" },
-  { href: "#contact", label: "contact", num: "05" },
+  { href: "#work", label: "Work", num: "01" },
+  { href: "#services", label: "Services", num: "02" },
+  { href: "#about", label: "About", num: "03" },
+  { href: "#process", label: "Process", num: "04" },
+  { href: "#contact", label: "Contact", num: "05" },
 ];
 
 export default function TopNav() {
@@ -86,7 +86,7 @@ export default function TopNav() {
             href="#contact"
             className="inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-1.5 text-xs font-semibold text-ink transition-all hover:opacity-95 hover:scale-105 shadow-sm"
           >
-            <span>get a quote</span>
+            <span>Get a Quote</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -136,7 +136,7 @@ export default function TopNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between py-3.5 px-3 rounded-xl font-mono text-base text-neutral-200 hover:text-white hover:bg-white/10 active:bg-white/15 transition-all"
                   >
-                    <span className="capitalize text-lg font-medium">{l.label}</span>
+                    <span className="text-lg font-medium">{l.label}</span>
                     <span className="font-mono text-xs text-faint">/{l.num}</span>
                   </a>
                 ))}
@@ -149,7 +149,7 @@ export default function TopNav() {
                   onClick={() => setOpen(false)}
                   className="flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-paper px-6 py-3 text-sm font-bold text-ink shadow-lg active:scale-[0.98] transition-transform"
                 >
-                  <span>get a free quote</span>
+                  <span>Get a Free Quote</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
 
@@ -161,7 +161,7 @@ export default function TopNav() {
                   className="flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3 text-sm font-medium text-paper active:scale-[0.98] transition-transform"
                 >
                   <WhatsAppIcon className="h-4 w-4 text-emerald-400" />
-                  <span>chat on whatsapp</span>
+                  <span>Chat on WhatsApp</span>
                 </a>
               </div>
 

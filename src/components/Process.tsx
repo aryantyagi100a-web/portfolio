@@ -241,11 +241,11 @@ export default function Process() {
               className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 backdrop-blur-md px-3.5 py-1.5 text-xs font-mono text-faint shadow-sm"
             >
               <Zap className="w-3.5 h-3.5 text-live animate-bounce" />
-              <span>[ studio roadmap / 7-day sprint ]</span>
+              <span>[ Studio Roadmap / 7-Day Sprint ]</span>
             </motion.div>
 
             {/* Spicy Animated Headline */}
-            <h2 className="mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
+            <h2 className="mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-paper">
               <span className="block overflow-hidden py-0.5">
                 <motion.span
                   className="inline-block will-change-transform"
@@ -254,7 +254,7 @@ export default function Process() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  from raw concept to
+                  From Raw Concept To
                 </motion.span>
               </span>
               <span className="block overflow-hidden py-1">
@@ -265,7 +265,7 @@ export default function Process() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  live, client-getting site.
+                  Live, Client-Getting Site.
                 </motion.span>
               </span>
             </h2>
@@ -279,11 +279,11 @@ export default function Process() {
             className="max-w-md space-y-2.5"
           >
             <p className="text-sm sm:text-base text-mute leading-relaxed">
-              a rapid, transparent 7-day sprint from initial layout to custom domain launch. zero friction, zero hourly surprises.
+              A rapid, transparent 7-day sprint from initial layout to custom domain launch. Zero friction, zero hourly surprises.
             </p>
             <div className="flex items-center gap-2 text-xs font-mono text-live">
               <Clock className="w-4 h-4 text-live shrink-0" />
-              <span>⚡ standard turnaround: 5 to 7 days from kickoff</span>
+              <span>⚡ Standard turnaround: 5 to 7 days from kickoff</span>
             </div>
           </motion.div>
         </div>
@@ -462,7 +462,7 @@ export default function Process() {
                   </div>
 
                   {/* Step Title & Description */}
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight lowercase text-paper group-hover:text-white transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-paper group-hover:text-white transition-colors">
                     {s.title}
                   </h3>
                   <p className="mt-2.5 text-xs sm:text-sm text-mute leading-relaxed">
@@ -473,7 +473,7 @@ export default function Process() {
                 {/* Milestone Deliverables Checklist */}
                 <div className="mt-6 pt-4 border-t border-line/70 space-y-2 relative">
                   <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-faint min-h-[18px]">
-                    <span>// deliverables</span>
+                    <span>// Deliverables</span>
 
                     {/* ACTIVE VIEW Label: fades and slides in from the left (~8px) */}
                     <AnimatePresence>

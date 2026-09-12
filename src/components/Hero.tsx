@@ -8,7 +8,7 @@ export default function Hero() {
     <section className="relative px-4 sm:px-8 lg:px-16 pt-28 sm:pt-36 pb-16 sm:pb-28 min-h-[85vh] flex flex-col items-start justify-center">
       <div className="relative max-w-5xl text-left w-full">
         {/* Responsive Headline with staggered entrance */}
-        <h1 className="font-bold tracking-[-0.04em] leading-[1.02] sm:leading-[0.96] text-[clamp(2.4rem,8.5vw,7.5rem)] lowercase text-paper text-left">
+        <h1 className="font-bold tracking-[-0.04em] leading-[1.02] sm:leading-[0.96] text-[clamp(2.4rem,8.5vw,7.5rem)] text-paper text-left">
           <div className="overflow-hidden pb-[0.04em]">
             <motion.span
               className="inline-block will-change-transform"
@@ -20,7 +20,7 @@ export default function Hero() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              websites that
+              Websites that
             </motion.span>
           </div>
           <div className="overflow-hidden pb-[0.04em]">
@@ -74,7 +74,7 @@ export default function Hero() {
                 href="#contact"
                 className="flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-paper px-8 py-3.5 text-base font-bold text-ink transition-all hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] shadow-lg text-center"
               >
-                <span>get a free quote</span>
+                <span>Get a Free Quote</span>
                 <ArrowUpRight className="w-4 h-4" />
               </a>
             </Magnetic>
@@ -86,7 +86,7 @@ export default function Hero() {
                 className="flex min-h-[48px] items-center justify-center gap-2.5 rounded-full border border-white/25 bg-surface/50 backdrop-blur-md px-6 py-3.5 text-base font-medium text-paper transition-all hover:bg-white/15 hover:border-white/40 active:scale-[0.98] text-center"
               >
                 <WhatsAppIcon className="h-4 w-4 shrink-0 text-emerald-400" />
-                <span>whatsapp me</span>
+                <span>WhatsApp Me</span>
               </a>
             </Magnetic>
           </motion.div>

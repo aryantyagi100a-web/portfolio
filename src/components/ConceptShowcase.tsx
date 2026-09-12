@@ -28,19 +28,19 @@ export default function ConceptShowcase() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-xs sm:text-[13px] text-faint">[ featured work & live demos ]</p>
-            <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
-              working websites built for businesses
+            <p className="font-mono text-xs sm:text-[13px] text-faint">[ Featured Work & Live Demos ]</p>
+            <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-paper">
+              Working websites built for businesses
             </h2>
           </div>
           <div className="inline-flex items-center gap-2 self-start sm:self-auto rounded-full border border-line bg-surface/50 backdrop-blur-md px-3.5 py-1.5 text-xs font-mono text-mute">
             <span className="h-2 w-2 rounded-full bg-live" />
-            <span>4 working live demos</span>
+            <span>4 Working Live Demos</span>
           </div>
         </div>
 
         <p className="mt-3 sm:mt-4 max-w-2xl text-sm sm:text-base text-mute leading-relaxed font-normal">
-          every demo below is a fully functional, mobile-first website designed to turn visitors into paying customers. tap any project to test its live flow or launch the full experience.
+          Every demo below is a fully functional, mobile-first website designed to turn visitors into paying customers. Tap any project to test its live flow or launch the full experience.
         </p>
 
         {/* Project Selector Tabs — Scrollable on mobile, wrapping on tablet/desktop */}
@@ -135,7 +135,7 @@ export default function ConceptShowcase() {
               <span className="font-bold tracking-tight text-neutral-900 capitalize text-sm sm:text-base truncate">
                 {activeProject.title.split("—")[0]}
               </span>
-              <span className="hidden md:block text-neutral-500 font-mono text-xs lowercase truncate">
+              <span className="hidden md:block text-neutral-500 font-mono text-xs truncate">
                 {activeProject.badge}
               </span>
               <a
@@ -145,7 +145,7 @@ export default function ConceptShowcase() {
                 className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 hover:bg-neutral-800 px-3 sm:px-3.5 py-1.5 text-[11px] font-medium text-white transition-all shadow-sm shrink-0"
               >
                 <WhatsAppIcon className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                <span>book on whatsapp</span>
+                <span>Book on WhatsApp</span>
               </a>
             </div>
 
@@ -155,7 +155,7 @@ export default function ConceptShowcase() {
                 <span className="inline-block rounded-full bg-neutral-100 border border-neutral-200 px-2.5 sm:px-3 py-0.5 sm:py-1 font-mono text-[10px] sm:text-[11px] text-neutral-700 mb-2.5 sm:mb-3">
                   {activeProject.category}
                 </span>
-                <p className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight lowercase leading-tight max-w-xl text-neutral-900">
+                <p className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight max-w-xl text-neutral-900">
                   {activeProject.headline}
                 </p>
                 <p className="text-xs sm:text-base text-neutral-600 mt-2 max-w-lg leading-relaxed">

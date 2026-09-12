@@ -44,11 +44,11 @@ export default function Services() {
               className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 backdrop-blur-md px-3.5 py-1.5 text-xs font-mono text-faint"
             >
               <Sparkles className="w-3.5 h-3.5 text-live" />
-              <span>[ services ]</span>
+              <span>[ Services ]</span>
             </motion.div>
 
             {/* Refined Animated Header */}
-            <h2 className="mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
+            <h2 className="mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-paper">
               <span className="block overflow-hidden py-0.5">
                 <motion.span
                   className="inline-block will-change-transform"
@@ -57,7 +57,7 @@ export default function Services() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  everything your business needs to
+                  Everything Your Business Needs To
                 </motion.span>
               </span>
               <span className="block overflow-hidden py-1">
@@ -68,7 +68,7 @@ export default function Services() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  win customers online.
+                  Win Customers Online.
                 </motion.span>
               </span>
             </h2>
@@ -82,11 +82,11 @@ export default function Services() {
             className="max-w-md space-y-2.5"
           >
             <p className="text-sm sm:text-base text-mute leading-relaxed">
-              one dedicated team, end to end — design, build, launch, and support. zero middlemen, zero bloated agency fees.
+              One dedicated team, end to end — design, build, launch, and support. Zero middlemen, zero bloated agency fees.
             </p>
             <div className="flex items-center gap-2 text-xs font-mono text-live">
               <CheckCircle2 className="w-4 h-4 text-live shrink-0" />
-              <span>100% turnkey · upfront flat pricing</span>
+              <span>100% Turnkey · Upfront Flat Pricing</span>
             </div>
           </motion.div>
         </div>
@@ -123,7 +123,7 @@ export default function Services() {
 
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-lg sm:text-2xl font-bold tracking-tight lowercase text-paper group-hover:text-white transition-colors">
+                      <h3 className="text-lg sm:text-2xl font-bold tracking-tight text-paper group-hover:text-white transition-colors">
                         {s.title}
                       </h3>
                       {s.tag && (
@@ -144,7 +144,7 @@ export default function Services() {
                     href="#contact"
                     className="w-full sm:w-auto inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-mono text-xs font-medium text-mute group-hover:border-white/50 group-hover:bg-paper group-hover:text-ink transition-all duration-200 shadow-sm"
                   >
-                    <span>inquire for this</span>
+                    <span>Inquire for This</span>
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </a>
                 </div>
@@ -164,7 +164,7 @@ export default function Services() {
           <div className="space-y-1 text-center lg:text-left w-full lg:w-auto">
             <div className="flex items-center justify-center lg:justify-start gap-2 font-mono text-xs text-live">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Flat fee guarantee</span>
+              <span>Flat Fee Guarantee</span>
             </div>
             <p className="text-base sm:text-lg font-bold text-paper">
               Every project is quoted flat before kickoff — 0 hourly surprises.
@@ -190,7 +190,7 @@ export default function Services() {
               href="#contact"
               className="flex min-h-[48px] items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-mute hover:text-paper hover:border-white/30 active:scale-[0.98] transition-colors font-mono text-center"
             >
-              fill form →
+              Fill Form →
             </a>
           </div>
         </motion.div>
