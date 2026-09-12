@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site, faqs } from "../site.config";
-import { RollingText } from "./ui";
+import { RollingText, ScrambleWordmark } from "./ui";
 import { ChevronDown, HelpCircle } from "lucide-react";
 
 export default function Footer() {
@@ -125,33 +125,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Monumental Merus-Style Full-Width Wordmark: "CABIN" */}
-      <div className="w-full mt-10 sm:mt-16 pt-4 overflow-hidden border-t border-white/5 select-none pointer-events-none">
-        <div className="px-2 sm:px-6 max-w-[1440px] mx-auto">
-          <svg
-            viewBox="0 0 1360 210"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto text-white/[0.08] hover:text-white/[0.18] transition-colors duration-500 will-change-transform"
-            aria-label="CABIN"
-          >
-            <text
-              x="50%"
-              y="74%"
-              textAnchor="middle"
-              fill="currentColor"
-              className="font-mono font-black uppercase"
-              style={{
-                fontSize: "210px",
-                letterSpacing: "-0.04em",
-                fontWeight: 900,
-              }}
-            >
-              CABIN
-            </text>
-          </svg>
-        </div>
-      </div>
+      {/* Monumental Scrambling Wordmark (CABIN <-> CODE) */}
+      <ScrambleWordmark
+        words={["CABIN", "CODE"]}
+        defaultWord="CABIN"
+        className="mt-10 sm:mt-16 pt-4 border-t border-white/5"
+      />
     </footer>
   );
 }
