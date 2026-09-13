@@ -10,7 +10,7 @@ export const site = {
   location: "India",
 
   // --- Contact (PLACEHOLDER values — swap in your real ones) ---
-  email: "hello@cabinandcode.com",
+  email: "cabinandcode29@gmail.com",
   whatsapp: "919220472008", // country code + number, digits only (no +, spaces or dashes)
   whatsappDisplay: "+91 9220472008", // how the number appears on screen
 
@@ -34,6 +34,16 @@ export const site = {
   // --- Socials (empty strings are hidden automatically) ---
   githubUrl: "",
   linkedinUrl: "",
+} as const;
+
+// ============================================================
+// Hero stamp card (desktop only) — the tilted postage-stamp portrait.
+// ============================================================
+export const stamp = {
+  image: "/stamp-portrait.jpg",
+  imageAlt: "Portrait photo",
+  title: "Aryan",
+  stats: ["Web Studio", "127 stamps collected"],
 } as const;
 
 // ============================================================
@@ -64,12 +74,6 @@ export const services = [
     tag: "100% ownership",
     description:
       "Your custom domain bought, connected, and securely hosted. You own everything with zero proprietary lock-in.",
-  },
-  {
-    title: "Updates After Launch",
-    tag: "Flat & transparent",
-    description:
-      "Small changes — prices, photos, hours — done quickly at flat, predictable rates. No retainers, no hourly surprises.",
   },
 ] as const;
 
@@ -323,10 +327,10 @@ export const aboutSection = {
       avatar: "/avatar.png",
     },
     {
-      name: "Studio Team",
+      name: "Rudraksha",
       role: "Design & Development",
       bio: "Crafting typography, layout hierarchies, and custom features that turn visitors into paying customers.",
-      avatar: "C&C",
+      avatar: "/rudraksha.png",
     },
   ],
 } as const;

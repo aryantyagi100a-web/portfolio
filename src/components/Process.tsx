@@ -1,22 +1,28 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  Layers,
-  Code2,
-  Rocket,
-  Zap,
   CheckCircle2,
   Clock,
-  Sparkles,
+  Code2,
+  Layers,
+  Rocket,
+  X,
+  Zap,
+  ArrowRight,
 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-interface PoofParticle {
-  id: number;
-  x: number;
-  y: number;
+interface ProcessStep {
+  step: string;
+  timeframe: string;
+  title: string;
+  tabLabel: string;
+  description: string;
+  icon: typeof Layers;
+  accent: string;
+  deliverables: string[];
 }
 
-const stepsData = [
+const stepsData: ProcessStep[] = [
   {
     step: "01",
     timeframe: "days 01–02",
@@ -60,31 +66,6 @@ const stepsData = [
     ],
   },
 ];
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 25, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 340,
-      damping: 24,
-    },
-  },
-};
 
 // --- Classic 6-Cell "Poof 💨" Particle Component (340ms) ---
 function PoofEffectInstance({ x, y }: { x: number; y: number }) {
@@ -163,11 +144,28 @@ function PoofEffectInstance({ x, y }: { x: number; y: number }) {
   );
 }
 
+interface PoofParticle {
+  id: number;
+  x: number;
+  y: number;
+}
+
+// Stack slot styling — slot 0 is the expanded front card, deeper slots peek
+// out behind at playful angles (like the reference deck).
+const DECK_SLOTS = [
+  { rotate: 0, y: 0, scale: 1, opacity: 1, zIndex: 30 },
+  { rotate: -2.6, y: 22, scale: 0.97, opacity: 0.9, zIndex: 20 },
+  { rotate: 2.2, y: 42, scale: 0.94, opacity: 0.72, zIndex: 10 },
+];
+
 export default function Process() {
-  const [activeStep, setActiveStep] = useState<number>(0);
+  // order[0] is the front card; dismissing rotates the deck.
+  const [order, setOrder] = useState<number[]>([0, 1, 2]);
+  const [exiting, setExiting] = useState<string | null>(null); // step id flying out
   const [poofs, setPoofs] = useState<PoofParticle[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const topCardRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+  const cyclingRef = useRef(false);
 
   const triggerPoofAt = useCallback((x: number, y: number) => {
     const id = Date.now() + Math.random();
@@ -177,52 +175,37 @@ export default function Process() {
     }, 450);
   }, []);
 
-  const selectStep = useCallback(
-    (nextIdx: number, clientCoords?: { x: number; y: number }) => {
-      if (clientCoords) {
-        triggerPoofAt(clientCoords.x, clientCoords.y);
-      } else {
-        const targetEl = cardRefs.current[nextIdx];
-        if (targetEl) {
-          const rect = targetEl.getBoundingClientRect();
-          triggerPoofAt(rect.left + rect.width / 2, rect.top + rect.height / 3);
-        }
-      }
-      setActiveStep(nextIdx);
-    },
-    [triggerPoofAt]
-  );
+  // Poof the front card away and send it to the back of the deck.
+  const dismissTop = useCallback(() => {
+    if (cyclingRef.current) return;
+    cyclingRef.current = true;
 
-  // Auto-Cycle every 4 seconds continuously across steps 0 -> 1 -> 2 -> 0
+    const topIdx = order[0];
+    const rect = topCardRef.current?.getBoundingClientRect();
+    if (rect) {
+      triggerPoofAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }
+    setExiting(stepsData[topIdx].step);
+
+    setTimeout(() => {
+      setOrder((prev) => [...prev.slice(1), prev[0]]);
+      setExiting(null);
+      cyclingRef.current = false;
+    }, 380);
+  }, [order, triggerPoofAt]);
+
+  // Auto-cycle every 4s; paused while the cursor is over the deck.
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveStep((prev) => {
-        const next = (prev + 1) % stepsData.length;
-        const targetEl = cardRefs.current[next];
-        if (targetEl) {
-          const rect = targetEl.getBoundingClientRect();
-          triggerPoofAt(rect.left + rect.width / 2, rect.top + rect.height / 3);
-        }
-        return next;
-      });
+      if (!pausedRef.current) dismissTop();
     }, 4000);
-
     return () => clearInterval(interval);
-  }, [triggerPoofAt]);
-
-  function handleTabClick(idx: number, e: React.MouseEvent) {
-    selectStep(idx, { x: e.clientX, y: e.clientY });
-  }
-
-  function handleCardClick(idx: number, e: React.MouseEvent) {
-    selectStep(idx, { x: e.clientX, y: e.clientY });
-  }
+  }, [dismissTop]);
 
   return (
     <section
       id="process"
-      ref={containerRef}
-      className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-16 sm:py-28 relative overflow-hidden"
+      className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-20 sm:py-28 relative overflow-hidden"
     >
       {/* Dynamic Poof 💨 particle instances */}
       {poofs.map((p) => (
@@ -288,239 +271,156 @@ export default function Process() {
           </motion.div>
         </div>
 
-        {/* Segmented Tab Bar at the top (with sliding active-pill ~400ms ease-out) */}
+        {/* --- The Deck --- */}
+        {/* Front card in normal flow (sizes the container); back cards overlay */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 flex items-center gap-2 bg-black/40 border border-white/10 p-2 rounded-2xl backdrop-blur-md font-mono text-xs text-faint"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mt-10 sm:mt-14 max-w-5xl mx-auto"
+          onMouseEnter={() => (pausedRef.current = true)}
+          onMouseLeave={() => (pausedRef.current = false)}
+          onTouchStart={() => (pausedRef.current = true)}
+          onTouchEnd={() => {
+            // Resume auto-cycling a few seconds after the last touch, so
+            // mobile readers aren't yanked to the next step mid-read.
+            window.setTimeout(() => (pausedRef.current = false), 4000);
+          }}
         >
-          {stepsData.map((s, idx) => {
-            const isSelected = activeStep === idx;
-            return (
-              <button
-                key={s.step}
-                type="button"
-                onClick={(e) => handleTabClick(idx, e)}
-                className={`relative shrink-0 flex-1 min-h-[44px] py-2 px-3 rounded-xl transition-colors duration-300 font-semibold cursor-pointer flex items-center justify-center gap-2 select-none ${
-                  isSelected
-                    ? "text-neutral-950 font-bold"
-                    : "text-neutral-300 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                {/* White active-pill background with smooth slide transition (~400ms ease-out) */}
-                {isSelected && (
-                  <motion.div
-                    layoutId="activeProcessPill"
-                    className="absolute inset-0 rounded-xl bg-white shadow-lg -z-10"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
+          <div className="relative pb-14 sm:pb-16">
+            {order.map((stepIdx, slot) => {
+              const s = stepsData[stepIdx];
+              const Icon = s.icon;
+              const isTop = slot === 0;
+              const isFlying = exiting === s.step;
+              const slotStyle = isTop ? DECK_SLOTS[0] : DECK_SLOTS[Math.min(slot, 2)];
 
-                {/* Status Dot: turns bright/solid green when active on white pill, muted when inactive */}
-                <span
-                  className="h-2 w-2 rounded-full shrink-0 transition-all duration-300"
-                  style={{
-                    backgroundColor: isSelected ? "#156338" : s.accent,
-                    boxShadow: isSelected ? "0 0 6px rgba(21, 99, 56, 0.4)" : "none",
-                  }}
-                />
-                <span className="capitalize">{s.tabLabel}</span>
-              </button>
-            );
-          })}
+              return (
+                <motion.div
+                  key={s.step}
+                  ref={isTop ? topCardRef : undefined}
+                  animate={
+                    isFlying
+                      ? { x: 160, y: -34, rotate: 7, opacity: 0, scale: 0.94 } // poof exit
+                      : {
+                          x: 0,
+                          rotate: slotStyle.rotate,
+                          y: slotStyle.y,
+                          scale: slotStyle.scale,
+                          opacity: slotStyle.opacity,
+                        }
+                  }
+                  transition={
+                    isFlying
+                      ? { duration: 0.36, ease: [0.25, 1, 0.5, 1] }
+                      : { type: "spring", stiffness: 320, damping: 26 }
+                  }
+                  style={{ zIndex: slotStyle.zIndex, transformOrigin: "60% 100%" }}
+                  className={
+                    isTop
+                      ? "relative"
+                      : "absolute inset-x-0 top-0 pointer-events-none"
+                  }
+                  aria-hidden={!isTop}
+                >
+                  <div
+                    className={`relative rounded-2xl sm:rounded-3xl bg-[#fafaf6] p-7 sm:p-10 shadow-xl ${
+                      isTop ? "shadow-2xl ring-1 ring-black/5" : ""
+                    }`}
+                  >
+                    {/* Dismiss X — front card only */}
+                    {isTop && (
+                      <button
+                        type="button"
+                        onClick={dismissTop}
+                        aria-label="Next step"
+                        className="absolute top-2.5 right-2.5 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/5 text-neutral-400 transition-colors hover:bg-black/10 hover:text-neutral-700 active:scale-90 sm:top-3.5 sm:right-3.5 sm:h-9 sm:w-9"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    )}
+
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 pr-10 sm:pr-12">
+                      {/* Icon tile */}
+                      <div
+                        className="flex h-16 w-16 sm:h-24 sm:w-24 shrink-0 items-center justify-center rounded-2xl shadow-inner"
+                        style={{ backgroundColor: `${s.accent}1f`, color: s.accent }}
+                      >
+                        <Icon className="h-7 w-7 sm:h-10 sm:w-10" />
+                      </div>
+
+                      {/* Text column */}
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                          <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-neutral-900">
+                            {s.title}
+                            <ArrowRight className="ml-2 inline h-5 w-5 sm:h-7 sm:w-7 text-neutral-400" />
+                          </h3>
+                          <span
+                            className="font-mono text-[10px] sm:text-xs uppercase tracking-wider px-2.5 py-1 rounded-full"
+                            style={{ backgroundColor: `${s.accent}1a`, color: "#3f3f46" }}
+                          >
+                            {s.timeframe}
+                          </span>
+                          <span className="font-mono text-2xl sm:text-3xl font-black text-neutral-200 select-none">
+                            {s.step}
+                          </span>
+                        </div>
+
+                        <p className="mt-3 text-sm sm:text-lg text-neutral-500 leading-relaxed max-w-2xl">
+                          {s.description}
+                        </p>
+
+                        {/* Deliverables */}
+                        <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
+                          {s.deliverables.map((d, dIdx) => (
+                            <div
+                              key={dIdx}
+                              className="flex items-start gap-2 text-sm sm:text-[15px] text-neutral-600"
+                            >
+                              <CheckCircle2
+                                className="w-[18px] h-[18px] shrink-0 mt-0.5"
+                                style={{ color: s.accent }}
+                              />
+                              <span className="leading-snug">{d}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Deck progress dots + hint */}
+          <div className="mt-2 flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-widest text-faint select-none">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {order.map((stepIdx, slot) =>
+                slot === 0 ? (
+                  <motion.span
+                    key={stepsData[stepIdx].step}
+                    layout
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.5, opacity: 0 }}
+                    className="inline-flex items-center gap-1.5 text-live"
+                  >
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{ backgroundColor: stepsData[stepIdx].accent }}
+                    />
+                    {stepsData[stepIdx].tabLabel}
+                  </motion.span>
+                ) : null
+              )}
+            </AnimatePresence>
+            <span className="text-white/30">· hover to pause · × to dismiss</span>
+          </div>
         </motion.div>
-
-        {/* Row of 3 Cards styled like terminal/dev panels */}
-        <motion.ol
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mt-8 sm:mt-10 grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3"
-        >
-          {stepsData.map((s, i) => {
-            const Icon = s.icon;
-            const isSelected = activeStep === i;
-
-            return (
-              <motion.li
-                key={s.step}
-                ref={(el) => {
-                  cardRefs.current[i] = el as unknown as HTMLDivElement;
-                }}
-                variants={cardVariants}
-                whileHover={{ y: -6, scale: 1.015 }}
-                onClick={(e) => handleCardClick(i, e)}
-                transition={{ type: "spring", stiffness: 350, damping: 22 }}
-                className={`group relative rounded-2xl sm:rounded-3xl border transition-all duration-300 p-5 sm:p-7 flex flex-col justify-between cursor-pointer select-none ${
-                  isSelected
-                    ? "border-white/60 bg-surface/95 shadow-2xl ring-2 ring-white/20"
-                    : "border-line bg-surface/60 backdrop-blur-xl hover:border-white/35 hover:bg-surface/80"
-                }`}
-              >
-                {/* Resting Inactive Thin Neutral Top Border */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[3.5px] bg-white/10 rounded-t-2xl sm:rounded-t-3xl overflow-hidden"
-                  aria-hidden
-                />
-
-                {/* --- POOF TRANSITION OVERLAYS (Incoming & Outgoing Animated Lifecycle) --- */}
-                <AnimatePresence mode="sync">
-                  {isSelected && (
-                    <motion.div
-                      key={`active-overlay-${s.step}`}
-                      initial={{ opacity: 0, scale: 0.98, y: 0, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                      exit={{
-                        opacity: 0,
-                        scale: 1.03,
-                        y: -10,
-                        filter: "blur(8px)",
-                        transition: { duration: 0.38, ease: [0.25, 1, 0.5, 1] },
-                      }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl z-10"
-                    >
-                      {/* Top Accent Bar: scales/wipes from 0% to 100% width left to right */}
-                      <motion.div
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        exit={{
-                          opacity: 0,
-                          scaleX: 1.02,
-                          transition: { duration: 0.35, ease: "easeOut" },
-                        }}
-                        transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-                        style={{ originX: 0, backgroundColor: s.accent }}
-                        className="absolute top-0 left-0 right-0 h-[3.5px] rounded-t-2xl sm:rounded-t-3xl shadow-sm"
-                        aria-hidden
-                      />
-
-                      {/* Bottom-right ambient glow: fades/scales in (opacity 0 -> 1, scale 0.9 -> 1) with slight bounce */}
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 0.45, scale: 1 }}
-                        exit={{
-                          opacity: 0,
-                          scale: 1.15,
-                          filter: "blur(16px)",
-                          transition: { duration: 0.36, ease: "easeOut" },
-                        }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 20,
-                        }}
-                        style={{ backgroundColor: s.accent }}
-                        className="absolute -right-10 -bottom-10 w-44 h-44 rounded-full blur-2xl"
-                        aria-hidden
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <div>
-                  {/* Top Bar: Icon Badge + Timeframe Pill + Step Number */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <div
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border bg-black/50 shadow-inner transition-all duration-300 ${
-                        isSelected
-                          ? "scale-110 border-white/40 shadow-[0_0_12px_rgba(255,255,255,0.15)]"
-                          : "border-white/20 group-hover:scale-105"
-                      }`}
-                      style={{ color: s.accent }}
-                    >
-                      <Icon className="w-5 h-5" />
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`font-mono text-[10px] sm:text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-full transition-colors duration-300 ${
-                          isSelected
-                            ? "bg-white text-ink font-bold"
-                            : "bg-white/10 text-faint group-hover:text-paper"
-                        }`}
-                      >
-                        {s.timeframe}
-                      </span>
-                      <span
-                        className={`font-mono text-2xl sm:text-3xl font-black transition-colors duration-300 select-none ${
-                          isSelected
-                            ? "text-white"
-                            : "text-white/25 group-hover:text-white/50"
-                        }`}
-                      >
-                        {s.step}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Step Title & Description */}
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-paper group-hover:text-white transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2.5 text-xs sm:text-sm text-mute leading-relaxed">
-                    {s.description}
-                  </p>
-                </div>
-
-                {/* Milestone Deliverables Checklist */}
-                <div className="mt-6 pt-4 border-t border-line/70 space-y-2 relative">
-                  <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-faint min-h-[18px]">
-                    <span>// Deliverables</span>
-
-                    {/* ACTIVE VIEW Label: fades and slides in from the left (~8px) */}
-                    <AnimatePresence>
-                      {isSelected && (
-                        <motion.span
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{
-                            opacity: 0,
-                            x: -6,
-                            scale: 0.95,
-                            transition: { duration: 0.3, ease: "easeOut" },
-                          }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 350,
-                            damping: 24,
-                          }}
-                          className="inline-flex items-center gap-1 text-live font-bold tracking-wider"
-                        >
-                          <Sparkles className="w-3 h-3 text-live" />
-                          <span>ACTIVE VIEW</span>
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {s.deliverables.map((d, dIdx) => (
-                    <div
-                      key={dIdx}
-                      className="flex items-start gap-2 text-xs text-neutral-200"
-                    >
-                      <CheckCircle2
-                        className={`w-3.5 h-3.5 shrink-0 mt-0.5 transition-colors duration-300 ${
-                          isSelected ? "text-live" : "text-faint"
-                        }`}
-                      />
-                      <span className="leading-snug">{d}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.li>
-            );
-          })}
-        </motion.ol>
       </div>
     </section>
   );
 }
-

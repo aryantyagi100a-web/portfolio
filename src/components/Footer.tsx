@@ -52,7 +52,7 @@ export default function Footer() {
                       </span>
                     </div>
                     <div
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-all duration-300 ${
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-all duration-300 sm:h-8 sm:w-8 ${
                         isOpen
                           ? "border-live/50 bg-live/15 text-live rotate-180 shadow-[0_0_10px_rgba(21,99,56,0.3)]"
                           : "border-white/10 bg-white/5 text-faint group-hover:border-white/25 group-hover:text-paper"
@@ -86,7 +86,7 @@ export default function Footer() {
         {/* Footer Main Nav & Credits */}
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between pt-6 border-t border-white/10">
           <div>
-            <a href="#top" className="inline-block text-base sm:text-sm font-semibold tracking-tight text-paper">
+            <a href="#top" className="inline-flex items-center py-2.5 -my-2.5 text-base sm:text-sm font-semibold tracking-tight text-paper">
               <RollingText text={site.name} />
               <span className="text-faint"> — {site.role}</span>
             </a>
@@ -96,23 +96,28 @@ export default function Footer() {
           </div>
 
           <nav aria-label="footer" className="flex flex-wrap gap-x-6 gap-y-2.5 sm:gap-x-7 sm:gap-y-3">
-            <a href={site.whatsappLink} target="_blank" rel="noopener noreferrer" className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
+            <a href={site.whatsappLink} target="_blank" rel="noopener noreferrer"className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-2.5 sm:py-1"
+            >
               WhatsApp
             </a>
-            <a href={`mailto:${site.email}`} className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
+            <a href={`mailto:${site.email}`}className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-2.5 sm:py-1"
+            >
               Email
             </a>
             {site.githubUrl && (
-              <a href={site.githubUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
-                GitHub
+              <a href={site.githubUrl} target="_blank" rel="noopener noreferrer"className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-2.5 sm:py-1"
+            >
+              GitHub
               </a>
             )}
             {site.linkedinUrl && (
-              <a href={site.linkedinUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
-                LinkedIn
+              <a href={site.linkedinUrl} target="_blank" rel="noopener noreferrer"className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-2.5 sm:py-1"
+            >
+              LinkedIn
               </a>
             )}
-            <a href="#contact" className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-1">
+            <a href="#contact"className="font-mono text-sm sm:text-[13px] text-mute transition-colors hover:text-paper py-2.5 sm:py-1"
+            >
               Contact
             </a>
           </nav>
@@ -125,11 +130,10 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Monumental Scrambling Wordmark with Bitmoji on the left */}
+      {/* Monumental Scrambling Wordmark */}
       <ScrambleWordmark
         words={["CABIN", "CODE"]}
         defaultWord="CABIN"
-        avatarSrc="/avatar.png"
         className="mt-10 sm:mt-16 pt-4 border-t border-white/5"
       />
     </footer>

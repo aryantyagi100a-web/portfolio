@@ -63,7 +63,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-16 sm:py-28">
+    <section id="contact" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-20 sm:py-28">
       <motion.div
         className="max-w-6xl mx-auto"
         initial={{ opacity: 0, y: 30 }}

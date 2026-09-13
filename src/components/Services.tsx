@@ -1,7 +1,6 @@
 import { motion, type Variants } from "framer-motion";
-import { services, site } from "../site.config";
+import { services } from "../site.config";
 import { Sparkles, ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { Magnetic, WhatsAppIcon } from "./ui";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -31,7 +30,7 @@ const itemVariants: Variants = {
 
 export default function Services() {
   return (
-    <section id="services" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-16 sm:py-28 relative overflow-hidden">
+    <section id="services" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-20 sm:py-28 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Section Header with Refined Typography */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-4">
@@ -151,48 +150,6 @@ export default function Services() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Bottom Eye-Catching Highlight Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl border border-line bg-surface/80 backdrop-blur-xl p-5 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl"
-        >
-          <div className="space-y-1 text-center lg:text-left w-full lg:w-auto">
-            <div className="flex items-center justify-center lg:justify-start gap-2 font-mono text-xs text-live">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Flat Fee Guarantee</span>
-            </div>
-            <p className="text-base sm:text-lg font-bold text-paper">
-              Every project is quoted flat before kickoff — 0 hourly surprises.
-            </p>
-            <p className="font-mono text-xs text-faint">
-              Need a custom quote today? Get an instant estimate on WhatsApp.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
-            <Magnetic className="w-full sm:w-auto">
-              <a
-                href={site.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-[48px] items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-bold text-neutral-900 shadow-lg hover:bg-neutral-100 hover:shadow-2xl active:scale-[0.98] transition-all text-center"
-              >
-                <WhatsAppIcon className="h-4 w-4 text-[#15803d]" />
-                <span>Quick WhatsApp Quote</span>
-              </a>
-            </Magnetic>
-            <a
-              href="#contact"
-              className="flex min-h-[48px] items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-mute hover:text-paper hover:border-white/30 active:scale-[0.98] transition-colors font-mono text-center"
-            >
-              Fill Form →
-            </a>
-          </div>
         </motion.div>
       </div>
     </section>

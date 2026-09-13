@@ -3,6 +3,9 @@
 @theme {
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Abril Fatface", Georgia, serif;
+
+  --breakpoint-xs: 400px;
 
   --color-ink: #156338;
   --color-surface: rgba(14, 68, 38, 0.76);
@@ -49,6 +52,51 @@ body {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+/* ---- Postage-stamp perforated edge --------------------------------
+   Four hole-punch layers (top / bottom / left / right), each a
+   repeating row or column of semicircles centered on that edge,
+   composited with "intersect" so only the edges get notched and
+   the card face stays solid. No image assets. */
+.stamp-edge {
+  --notch: 7px;
+  mask:
+    radial-gradient(circle var(--notch) at var(--notch) 0, #0000 calc(var(--notch) - 0.5px), #000 var(--notch))
+      calc(-1 * var(--notch)) 0 / calc(var(--notch) * 2) 100% repeat-x,
+    radial-gradient(circle var(--notch) at var(--notch) 100%, #0000 calc(var(--notch) - 0.5px), #000 var(--notch))
+      calc(-1 * var(--notch)) 100% / calc(var(--notch) * 2) 100% repeat-x,
+    radial-gradient(circle var(--notch) at 0 var(--notch), #0000 calc(var(--notch) - 0.5px), #000 var(--notch))
+      0 calc(-1 * var(--notch)) / 100% calc(var(--notch) * 2) repeat-y,
+    radial-gradient(circle var(--notch) at 100% var(--notch), #0000 calc(var(--notch) - 0.5px), #000 var(--notch))
+      100% calc(-1 * var(--notch)) / 100% calc(var(--notch) * 2) repeat-y;
+  mask-composite: intersect;
+}
+
+/* Slow rotation for the footer crystal glyph */
+@keyframes crystal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.crystal-rotate {
+  animation: crystal-spin 18s linear infinite;
+  transform-origin: center;
+}
+
+/* Soft floor shadow under the stamp; --shx/--shy are driven from JS
+   so it slides opposite the tilt direction for depth. */
+.stamp-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  width: 78%;
+  height: 36px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.55);
+  filter: blur(14px);
+  transform: translate3d(calc(-50% + var(--shx, 0px)), var(--shy, 0px), 0);
+  pointer-events: none;
 }
 
 /* Hide scrollbar for clean horizontal swipe strips on mobile */

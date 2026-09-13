@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function StatementBand() {
   return (
-    <section aria-label="statement" className="border-y border-line bg-surface/40 px-4 sm:px-8 lg:px-16 py-16 sm:py-24">
+    <section aria-label="statement" className="border-y border-line bg-surface/40 px-4 sm:px-8 lg:px-16 py-20 sm:py-24">
       <motion.div
         className="mx-auto max-w-4xl text-center"
         initial={{ opacity: 0, y: 30 }}

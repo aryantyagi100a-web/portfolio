@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
-import { site } from "../site.config";
+import { site, stamp } from "../site.config";
 import { Magnetic, WhatsAppIcon } from "./ui";
 import { ArrowUpRight } from "lucide-react";
+import StampCard from "./StampCard";
 
 export default function Hero() {
   return (
     <section className="relative px-4 sm:px-8 lg:px-16 pt-28 sm:pt-36 pb-16 sm:pb-28 min-h-[85vh] flex flex-col items-start justify-center">
-      <div className="relative max-w-5xl text-left w-full">
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_auto]">
+        <div className="relative max-w-5xl text-left w-full min-w-0 lg:-left-6 xl:-left-10">
         {/* Responsive Headline with staggered entrance */}
         <h1 className="font-bold tracking-[-0.04em] leading-[1.02] sm:leading-[0.96] text-[clamp(2.4rem,8.5vw,7.5rem)] text-paper text-left">
           <div className="overflow-hidden pb-[0.04em]">
@@ -103,6 +105,31 @@ export default function Hero() {
           <span className="hidden xs:inline">·</span>
           <span>{site.heroNote}</span>
         </motion.p>
+        </div>
+
+        {/* Tilted postage stamp: right column on desktop */}
+        <div className="hidden lg:flex w-[380px] justify-end pr-2 xl:pr-8">
+          <StampCard
+            image={stamp.image}
+            imageAlt={stamp.imageAlt}
+            title={stamp.title}
+            stats={[...stamp.stats]}
+            width={380}
+          />
+        </div>
+      </div>
+
+      {/* Mobile/tablet: same stamp below the hero copy, centered */}
+      <div className="relative mt-10 flex justify-center lg:hidden w-full">
+        <div className="w-[240px]">
+          <StampCard
+            image={stamp.image}
+            imageAlt={stamp.imageAlt}
+            title={stamp.title}
+            stats={[...stamp.stats]}
+            width={240}
+          />
+        </div>
       </div>
     </section>
   );

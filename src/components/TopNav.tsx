@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "../site.config";
 import { RollingText, WhatsAppIcon } from "./ui";
+import CrystalGlyph from "./CrystalGlyph";
 import { ArrowUpRight, X } from "lucide-react";
 
 const LINKS = [
@@ -58,12 +59,11 @@ export default function TopNav() {
       >
         <a
           href="#top"
-          className="flex items-center gap-2.5 sm:gap-3 text-base sm:text-lg lg:text-xl font-bold tracking-tight text-white group"
+          className="flex items-center gap-2.5 sm:gap-3 py-2.5 -my-2.5 text-base sm:text-lg lg:text-xl font-bold tracking-tight text-white group"
         >
-          <img
-            src="/avatar.png"
-            alt="Cabin and Code"
-            className="h-7 w-7 sm:h-8 sm:w-8 object-cover rounded-full bg-white/10 p-0.5 border border-white/25 shadow-sm group-hover:scale-110 transition-transform duration-200"
+          <CrystalGlyph
+            size={32}
+            className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-white/10 p-0.5 border border-white/25 shadow-sm group-hover:scale-110 transition-transform duration-200 [&_svg]:h-full [&_svg]:w-full"
           />
           <span className="truncate max-w-[200px] sm:max-w-none">
             <RollingText text={site.name} />

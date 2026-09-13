@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import CrystalGlyph from "./CrystalGlyph";
 
 // ------------------------------------------------------------------
 // Small shared UI primitives for the monochrome design system.
@@ -147,7 +148,6 @@ export interface ScrambleWordmarkProps {
   pauseDuration?: number;
   className?: string;
   defaultWord?: string;
-  avatarSrc?: string;
 }
 
 export function ScrambleWordmark({
@@ -157,7 +157,6 @@ export function ScrambleWordmark({
   pauseDuration = 1300,
   className = "",
   defaultWord = "CABIN",
-  avatarSrc,
 }: ScrambleWordmarkProps) {
   const [displayText, setDisplayText] = useState(defaultWord);
   const currentWordRef = useRef(defaultWord);
@@ -233,7 +232,12 @@ export function ScrambleWordmark({
     }, pauseDuration);
   };
 
+  // Touch devices synthesize mouseenter/mouseleave on tap — ignore those so
+  // the tap-driven cycle below isn't cancelled mid-animation.
+  const lastTouchRef = useRef(0);
+
   const handleMouseEnter = () => {
+    if (Date.now() - lastTouchRef.current < 600) return;
     isHoveredRef.current = true;
     const currentWord = currentWordRef.current;
     const nextWord = currentWord === words[0] ? words[1] : words[0];
@@ -243,7 +247,48 @@ export function ScrambleWordmark({
     });
   };
 
+  /**
+   * Touch fallback — no hover on phones, so tapping the wordmark plays one
+   * full cycle (scramble to the next word, hold, scramble back). No-op while
+   * a desktop hover cycle is already running.
+   */
+  const handleTap = () => {
+    lastTouchRef.current = Date.now();
+    if (isHoveredRef.current) return;
+    const currentWord = currentWordRef.current;
+    const nextWord = currentWord === words[0] ? words[1] : words[0];
+    scrambleTo(nextWord, () => {
+      timeoutRef.current = window.setTimeout(() => {
+        if (!isHoveredRef.current) scrambleTo(defaultWord);
+      }, pauseDuration);
+    });
+  };
+
+  // Touch devices: auto-play a single cycle when the wordmark scrolls into
+  // view, so the effect isn't invisible to mobile visitors.
+  const containerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (HOVER_CAPABLE) return;
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    let played = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !played) {
+          played = true;
+          handleTap();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleMouseLeave = () => {
+    if (Date.now() - lastTouchRef.current < 600) return;
     isHoveredRef.current = false;
     clearTimers();
     if (currentWordRef.current !== defaultWord || displayText !== defaultWord) {
@@ -259,8 +304,10 @@ export function ScrambleWordmark({
 
   return (
     <div
+      ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleTap}
       className={`w-full overflow-hidden select-none cursor-pointer group ${className}`}
       aria-label="Cabin and Code"
     >
@@ -269,16 +316,7 @@ export function ScrambleWordmark({
         aria-hidden="true"
         className="w-full px-3 sm:px-8 max-w-[1500px] mx-auto flex items-center justify-center gap-3 sm:gap-6 lg:gap-8"
       >
-        {avatarSrc && (
-          <div className="shrink-0 flex items-center justify-center">
-            <img
-              src={avatarSrc}
-              alt="Bitmoji"
-              className="h-14 w-14 sm:h-20 sm:w-20 md:h-28 md:w-28 lg:h-32 lg:w-32 object-contain select-none transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 drop-shadow-2xl"
-              loading="eager"
-            />
-          </div>
-        )}
+        <CrystalGlyph size={112} className="h-16 w-16 sm:h-24 sm:w-24 md:h-28 md:w-28 lg:h-32 lg:w-32" />
 
         <div className="flex-1 min-w-0 flex items-center justify-center">
           <svg
@@ -292,12 +330,12 @@ export function ScrambleWordmark({
               y="72%"
               textAnchor="middle"
               fill="#ffffff"
-              className="font-sans uppercase"
+              className="uppercase"
               style={{
-                fontSize: "195px",
-                letterSpacing: "0.12em",
-                fontWeight: 900,
-                fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif",
+                fontSize: "172px",
+                letterSpacing: "0.1em",
+                fontWeight: 400,
+                fontFamily: "'Shrikhand', 'Georgia', serif",
               }}
             >
               {displayText}

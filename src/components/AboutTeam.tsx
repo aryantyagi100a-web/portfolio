@@ -4,7 +4,7 @@ import { Users, Sparkles, ArrowUpRight } from "lucide-react";
 
 export default function AboutTeam() {
   return (
-    <section id="about" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-16 sm:py-28">
+    <section id="about" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-20 sm:py-28">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -67,7 +67,7 @@ export default function AboutTeam() {
                     {/* Avatar Initials or Image Badge */}
                     <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border border-white/20 bg-black/60 font-mono text-base sm:text-lg font-bold text-paper shadow-inner group-hover:scale-105 transition-transform duration-300 overflow-hidden p-1">
                       {member.avatar.startsWith("/") ? (
-                        <img src={member.avatar} alt={member.name} className="h-full w-full object-contain" />
+                        <img src={member.avatar} alt={member.name} loading="lazy" decoding="async" className="h-full w-full object-contain" />
                       ) : (
                         member.avatar
                       )}
@@ -94,7 +94,7 @@ export default function AboutTeam() {
                   </span>
                   <a
                     href="#contact"
-                    className="inline-flex min-h-[36px] items-center gap-1 font-mono text-xs text-mute hover:text-paper active:text-white transition-colors py-1 px-2 -mr-2"
+                    className="inline-flex min-h-[44px] items-center gap-1 font-mono text-xs text-mute hover:text-paper active:text-white transition-colors px-2 -mr-2"
                   >
                     <span>Connect</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
