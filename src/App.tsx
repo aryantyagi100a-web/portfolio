@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import StickyMobileCTA from "./components/StickyMobileCTA";
 import Admin from "./pages/Admin";
 import DemoPage from "./pages/DemoPage";
+import NotFound from "./pages/NotFound";
 
 function Home() {
   return (
@@ -40,7 +41,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/demo/:id" element={<DemoPage />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
